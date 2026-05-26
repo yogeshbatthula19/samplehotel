@@ -1,23 +1,20 @@
-/* ==========================================================================
-   DESIGN SYSTEM & VARIABLES
-   ========================================================================== */
 :root {
-  /* Color Palette */
-  --color-bg-primary: #0b0c10;
-  --color-bg-secondary: #121318;
-  --color-bg-tertiary: #1b1c23;
-  --color-bg-overlay: rgba(11, 12, 16, 0.75);
+  /* Color Palette - Warm Ivory & Champagne Gold Light Theme */
+  --color-bg-primary: #faf8f5;
+  --color-bg-secondary: #f4f1eb;
+  --color-bg-tertiary: #eae6df;
+  --color-bg-overlay: rgba(250, 248, 245, 0.85);
   
-  --color-gold: #c5a880;
-  --color-gold-hover: #e5c583;
-  --color-gold-light: rgba(197, 168, 128, 0.15);
+  --color-gold: #aa8453;
+  --color-gold-hover: #8e6837;
+  --color-gold-light: rgba(170, 132, 83, 0.08);
   
-  --color-text-primary: #f3e9dc;
-  --color-text-secondary: #a39c94;
-  --color-text-muted: #6f6a63;
+  --color-text-primary: #1c1b19;
+  --color-text-secondary: #5a5752;
+  --color-text-muted: #8c8880;
   
-  --color-border: rgba(197, 168, 128, 0.2);
-  --color-border-hover: rgba(197, 168, 128, 0.5);
+  --color-border: rgba(170, 132, 83, 0.2);
+  --color-border-hover: rgba(170, 132, 83, 0.5);
   
   /* Fonts */
   --font-serif: 'Playfair Display', Georgia, serif;
@@ -273,16 +270,17 @@ button, input, select, textarea {
   display: flex;
   align-items: center;
   z-index: 1000;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-  background-color: rgba(11, 12, 16, 0.2); /* very light transparent */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: rgba(0, 0, 0, 0.2); /* very light transparent dark overlay */
   transition: height var(--transition-normal), 
               background-color var(--transition-normal), 
-              backdrop-filter var(--transition-normal);
+              backdrop-filter var(--transition-normal),
+              border-bottom-color var(--transition-normal);
 }
 
 #main-header.scrolled {
   height: var(--header-height-small);
-  background-color: rgba(11, 12, 16, 0.85);
+  background-color: rgba(250, 248, 245, 0.9);
   backdrop-filter: blur(12px);
   border-bottom-color: var(--color-border);
 }
@@ -306,14 +304,24 @@ button, input, select, textarea {
   font-family: var(--font-serif);
   font-size: 1.5rem;
   letter-spacing: 0.15em;
+  color: #ffffff; /* White default on dark hero overlay */
+  transition: color var(--transition-normal);
+}
+
+#main-header.scrolled .logo-light {
   color: var(--color-text-primary);
 }
 
 .logo-subtitle {
   font-size: 0.55rem;
   letter-spacing: 0.45em;
-  color: var(--color-gold);
+  color: #e5c583; /* Light gold default */
   margin-top: -2px;
+  transition: color var(--transition-normal);
+}
+
+#main-header.scrolled .logo-subtitle {
+  color: var(--color-gold);
 }
 
 .nav-menu {
@@ -331,9 +339,14 @@ button, input, select, textarea {
   font-weight: 500;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--color-text-secondary);
+  color: rgba(255, 255, 255, 0.8); /* Light default on dark hero */
   padding: 8px 0;
   position: relative;
+  transition: color var(--transition-normal);
+}
+
+#main-header.scrolled .nav-link {
+  color: var(--color-text-secondary);
 }
 
 .nav-link::after {
@@ -348,6 +361,11 @@ button, input, select, textarea {
 }
 
 .nav-link:hover, .nav-link.active {
+  color: #ffffff;
+}
+
+#main-header.scrolled .nav-link:hover, 
+#main-header.scrolled .nav-link.active {
   color: var(--color-text-primary);
 }
 
@@ -971,9 +989,10 @@ button, input, select, textarea {
    FOOTER
    ========================================================================== */
 .main-footer {
-  background-color: #06070a;
-  border-top: 1px solid var(--color-border);
+  background-color: #0c0d10; /* rich dark base */
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
   padding: 80px 0 40px;
+  color: #e5e2db;
 }
 
 .footer-grid {
@@ -998,12 +1017,12 @@ button, input, select, textarea {
   font-family: var(--font-serif);
   font-size: 1.5rem;
   letter-spacing: 0.15em;
-  color: var(--color-text-primary);
+  color: #ffffff;
 }
 
 .footer-about {
   font-size: 0.8rem;
-  color: var(--color-text-secondary);
+  color: #a5a29b;
   line-height: 1.7;
 }
 
@@ -1025,7 +1044,7 @@ button, input, select, textarea {
 
 .footer-links a {
   font-size: 0.8rem;
-  color: var(--color-text-secondary);
+  color: #a5a29b;
 }
 
 .footer-links a:hover {
@@ -1035,7 +1054,7 @@ button, input, select, textarea {
 
 .newsletter-desc {
   font-size: 0.8rem;
-  color: var(--color-text-secondary);
+  color: #a5a29b;
   margin-bottom: 16px;
 }
 
@@ -1045,12 +1064,12 @@ button, input, select, textarea {
 }
 
 .newsletter-form input {
-  background-color: var(--color-bg-secondary);
-  border: 1px solid var(--color-border);
+  background-color: #17181c;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 10px 16px;
   font-size: 0.8rem;
   border-radius: var(--border-radius-sm);
-  color: var(--color-text-primary);
+  color: #ffffff;
   flex-grow: 1;
   outline: none;
 }
@@ -1069,7 +1088,7 @@ button, input, select, textarea {
 
 .copyright {
   font-size: 0.75rem;
-  color: var(--color-text-muted);
+  color: #6c6a65;
 }
 
 .footer-socials {
@@ -1078,7 +1097,7 @@ button, input, select, textarea {
 }
 
 .footer-socials a {
-  color: var(--color-text-secondary);
+  color: #a5a29b;
   transition: color var(--transition-fast);
 }
 
@@ -1337,8 +1356,12 @@ dialog.\:open::backdrop {
     display: block;
     height: 2px;
     width: 100%;
+    background-color: #ffffff; /* White default on dark hero */
+    transition: transform var(--transition-fast), opacity var(--transition-fast), background-color var(--transition-normal);
+  }
+
+  #main-header.scrolled .hamburger-lines .line {
     background-color: var(--color-text-primary);
-    transition: transform var(--transition-fast), opacity var(--transition-fast);
   }
   
   /* Nav Menu Mobile styling */
@@ -1365,8 +1388,14 @@ dialog.\:open::backdrop {
     gap: 24px;
   }
   
-  .nav-link {
+  .nav-menu .nav-link {
     font-size: 0.9rem;
+    color: var(--color-text-secondary);
+  }
+
+  .nav-menu .nav-link:hover,
+  .nav-menu .nav-link.active {
+    color: var(--color-text-primary);
   }
   
   /* Header book button mobile styling */
