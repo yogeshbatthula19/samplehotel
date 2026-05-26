@@ -106,21 +106,46 @@ button {
    HEADER NAVIGATION
    ========================================================================== */
 .ins-header {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  padding: 24px 0;
-  background-color: var(--color-bg-primary);
+  height: 90px;
+  display: flex;
+  align-items: center;
+  z-index: 1000;
+  background-color: transparent;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  transition: height var(--transition-normal), 
+              background-color var(--transition-normal), 
+              backdrop-filter var(--transition-normal),
+              border-bottom-color var(--transition-normal);
+}
+
+.ins-header.scrolled {
+  height: 70px;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom-color: var(--color-border-light);
+  box-shadow: 0 10px 30px rgba(15, 41, 33, 0.05);
 }
 
 .header-wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
 }
 
 .ins-logo {
   display: inline-flex;
   align-items: center;
   gap: 10px;
+  color: #ffffff; /* White default on dark hero */
+  transition: color var(--transition-normal);
+}
+
+.ins-header.scrolled .ins-logo {
   color: var(--color-forest);
 }
 
@@ -128,6 +153,8 @@ button {
   width: 32px;
   height: 32px;
   transform: rotate(20deg);
+  fill: currentColor;
+  transition: fill var(--transition-normal);
 }
 
 .logo-text {
@@ -144,11 +171,21 @@ button {
 .ins-nav-link {
   font-size: 0.85rem;
   font-weight: 500;
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.8); /* Light color default */
+  transition: color var(--transition-normal);
 }
 
 .ins-nav-link:hover, 
 .ins-nav-link.active {
+  color: #ffffff;
+}
+
+.ins-header.scrolled .ins-nav-link {
+  color: var(--color-text-muted);
+}
+
+.ins-header.scrolled .ins-nav-link:hover, 
+.ins-header.scrolled .ins-nav-link.active {
   color: var(--color-forest);
 }
 
@@ -163,13 +200,23 @@ button {
   padding: 10px 24px;
   font-size: 0.85rem;
   font-weight: 600;
-  border: 1.5px solid var(--color-forest);
+  border: 1.5px solid #ffffff; /* White default */
   border-radius: 50px; /* Pill shaped */
-  color: var(--color-forest);
+  color: #ffffff;
   transition: all var(--transition-fast);
 }
 
 .btn-contact:hover {
+  background-color: #ffffff;
+  color: var(--color-forest);
+}
+
+.ins-header.scrolled .btn-contact {
+  border-color: var(--color-forest);
+  color: var(--color-forest);
+}
+
+.ins-header.scrolled .btn-contact:hover {
   background-color: var(--color-forest);
   color: #ffffff;
 }

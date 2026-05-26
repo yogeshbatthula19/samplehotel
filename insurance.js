@@ -79,8 +79,28 @@ function initTabSwitcher() {
 }
 
 // ==========================================================================
+// STICKY HEADER SCROLL EVENT
+// ==========================================================================
+function initStickyHeader() {
+  const header = document.querySelector('.ins-header');
+  if (!header) return;
+
+  const handleScroll = () => {
+    if (window.scrollY > 50) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  };
+
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  handleScroll(); // Initial run on load
+}
+
+// ==========================================================================
 // INITIALIZATION
 // ==========================================================================
 document.addEventListener('DOMContentLoaded', () => {
   initTabSwitcher();
+  initStickyHeader();
 });
