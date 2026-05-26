@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Meta Tags -->
+  <title>L'Horizon Luxury Resort & Spa | Premium Oceanfront Boutique Hotel</title>
+  <meta name="description" content="Experience unparalleled luxury at L'Horizon Resort & Spa. Discover our oceanfront suites, private villas, Michelin-star dining, and award-winning wellness spa. Book your stay today.">
+  <meta name="keywords" content="luxury hotel, resort, spa, boutique hotel, oceanfront suite, booking, villa, infinity pool">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="L'Horizon Luxury Resort & Spa | Premium Oceanfront Boutique Hotel">
+  <meta property="og:description" content="Unwind in paradise. Luxury suites, private pools, Michelin dining, and a serene wellness retreat await you at L'Horizon.">
+  <meta property="og:image" content="assets/images/hero.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Scroll Progress Indicator (Purely decorative visual scroll progress bar) -->
+  <div id="progress" aria-hidden="true"></div>
+
+  <!-- Header Navigation -->
+  <header id="main-header">
+    <div class="header-container">
+      <a href="#" class="logo" id="header-logo">
+        <span class="logo-light">L'HORIZON</span>
+        <span class="logo-subtitle">RESORT & SPA</span>
+      </a>
+      
+      <!-- Mobile Menu Toggle Button -->
+      <button class="mobile-nav-toggle" aria-controls="primary-navigation" aria-expanded="false" id="menu-toggle">
+        <span class="sr-only">Menu</span>
+        <div class="hamburger-lines">
+          <span class="line line1"></span>
+          <span class="line line2"></span>
+          <span class="line line3"></span>
+        </div>
+      </button>
+
+      <nav id="primary-navigation" class="nav-menu">
+        <ul class="nav-list">
+          <li><a href="#home" class="nav-link active">Home</a></li>
+          <li><a href="#rooms" class="nav-link">Suites</a></li>
+          <li><a href="#amenities" class="nav-link">Amenities</a></li>
+          <li><a href="#gallery" class="nav-link">Gallery</a></li>
+          <li><a href="#testimonials" class="nav-link">Reviews</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <button class="btn btn-gold btn-book-now" id="nav-booking-btn" commandfor="booking-dialog" command="show-modal">
+        Book Your Stay
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+      <div class="hero-bg-wrapper">
+        <img src="assets/images/hero.png" alt="Stunning infinity pool overlooking the ocean at sunset" class="hero-image">
+        <div class="hero-overlay"></div>
+      </div>
+      
+      <div class="hero-content">
+        <span class="hero-eyebrow">A sanctuary for the senses</span>
+        <h1 class="hero-title">Where Luxury Meets The Infinite Horizon</h1>
+        <p class="hero-lead">Nestled along pristine cliffs, L'Horizon offers an exquisite sanctuary of curated experiences, bespoke service, and refined oceanfront living.</p>
+        
+        <div class="hero-cta-group">
+          <button class="btn btn-gold btn-large" commandfor="booking-dialog" command="show-modal">Reserve Now</button>
+          <a href="#rooms" class="btn btn-outline btn-large">Explore Suites</a>
+        </div>
+      </div>
+
+      <!-- Quick Check Widget (Glassmorphic) -->
+      <div class="quick-check-widget">
+        <form class="quick-check-form" id="quick-check-form">
+          <div class="form-group-inline">
+            <label for="quick-checkin">Check-in</label>
+            <input type="date" id="quick-checkin" required>
+          </div>
+          <div class="form-group-inline">
+            <label for="quick-checkout">Check-out</label>
+            <input type="date" id="quick-checkout" required>
+          </div>
+          <div class="form-group-inline">
+            <label for="quick-guests">Guests</label>
+            <select id="quick-guests">
+              <option value="1">1 Guest</option>
+              <option value="2" selected>2 Guests</option>
+              <option value="3">3 Guests</option>
+              <option value="4">4 Guests</option>
+              <option value="5+">5+ Guests</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-gold" id="quick-search-btn">Check Availability</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Rooms & Suites Section -->
+    <section id="rooms" class="rooms-section section-padding">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-subtitle">Exquisite Accommodations</span>
+          <h2 class="section-title">Rooms & Suites</h2>
+          <div class="divider"></div>
+          <p class="section-desc">Each of our sanctuaries features premium amenities, private terraces, and breathtaking views of the azure coast.</p>
+        </div>
+
+        <div class="rooms-grid">
+          <!-- Room 1 -->
+          <div class="room-card" id="room-deluxe">
+            <div class="room-img-container">
+              <img src="assets/images/suite_deluxe.png" alt="Deluxe Ocean Suite interior" class="room-img">
+              <div class="room-badge">Popular</div>
+            </div>
+            <div class="room-info">
+              <div class="room-meta">
+                <span class="room-size">65 m²</span>
+                <span class="room-view">Ocean View</span>
+              </div>
+              <h3 class="room-title">Deluxe Ocean Suite</h3>
+              <p class="room-text">A masterfully styled retreat featuring custom oak woodwork, a private ocean terrace, and a spa-inspired stone bathroom.</p>
+              <div class="room-price-row">
+                <div class="room-price">
+                  <span class="price-amount">$550</span>
+                  <span class="price-unit">/ night</span>
+                </div>
+                <button class="btn btn-text room-details-trigger" data-room="deluxe">View Details &rarr;</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Room 2 -->
+          <div class="room-card" id="room-penthouse">
+            <div class="room-img-container">
+              <img src="assets/images/suite_penthouse.png" alt="Presidential Penthouse living area" class="room-img">
+              <div class="room-badge">Exclusive</div>
+            </div>
+            <div class="room-info">
+              <div class="room-meta">
+                <span class="room-size">140 m²</span>
+                <span class="room-view">Panoramic View</span>
+              </div>
+              <h3 class="room-title">Presidential Penthouse</h3>
+              <p class="room-text">Perched at our highest point, this grand space features private elevator access, double-height ceilings, and a marble fireplace.</p>
+              <div class="room-price-row">
+                <div class="room-price">
+                  <span class="price-amount">$1,200</span>
+                  <span class="price-unit">/ night</span>
+                </div>
+                <button class="btn btn-text room-details-trigger" data-room="penthouse">View Details &rarr;</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Room 3 -->
+          <div class="room-card" id="room-villa">
+            <div class="room-img-container">
+              <img src="assets/images/suite_villa.png" alt="Sanctuary Garden Villa pool deck" class="room-img">
+              <div class="room-badge">Private Pool</div>
+            </div>
+            <div class="room-info">
+              <div class="room-meta">
+                <span class="room-size">110 m²</span>
+                <span class="room-view">Garden & Cliff View</span>
+              </div>
+              <h3 class="room-title">Sanctuary Garden Villa</h3>
+              <p class="room-text">Tucked away in lush tropical foliage, our private villas offer ultimate seclusion with personal plunge pools and outdoor showers.</p>
+              <div class="room-price-row">
+                <div class="room-price">
+                  <span class="price-amount">$850</span>
+                  <span class="price-unit">/ night</span>
+                </div>
+                <button class="btn btn-text room-details-trigger" data-room="villa">View Details &rarr;</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Amenities Section -->
+    <section id="amenities" class="amenities-section section-padding bg-darker">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-subtitle">The L'Horizon Experience</span>
+          <h2 class="section-title">Curated Guest Conveniences</h2>
+          <div class="divider"></div>
+          <p class="section-desc">From check-in to check-out, immerse yourself in world-class amenities designed to elevate your stay.</p>
+        </div>
+
+        <div class="amenities-grid">
+          <!-- Amenity 1 -->
+          <div class="amenity-card">
+            <div class="amenity-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M2 12h20M2 17h20M2 7c3 0 5 2 7 2s4-2 7-2 4 2 6 2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="amenity-title">Infinity Cliffside Pool</h3>
+            <p class="amenity-text">Dive into our signature pool that seamlessly blends into the sky, complete with custom sun lounges and poolside butler service.</p>
+          </div>
+
+          <!-- Amenity 2 -->
+          <div class="amenity-card">
+            <div class="amenity-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3 class="amenity-title">Michelin Dining</h3>
+            <p class="amenity-text">Savor fine-dining creations under the stars, showcasing locally-sourced marine ingredients and international culinary artistry.</p>
+          </div>
+
+          <!-- Amenity 3 -->
+          <div class="amenity-card">
+            <div class="amenity-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 3v18M12 9a6 6 0 1 0 0-1.2A6 6 0 0 0 12 9z" stroke-linecap="round"/>
+                <path d="M12 9s-4.5 4.5-4.5 7.5S12 21 12 21s4.5-1.5 4.5-4.5S12 9 12 9z" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="amenity-title">AURA Spa & Wellness</h3>
+            <p class="amenity-text">Restore body and mind in our serene sanctuaries, offering stone therapies, organic botanical facials, and yoga sessions.</p>
+          </div>
+
+          <!-- Amenity 4 -->
+          <div class="amenity-card">
+            <div class="amenity-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="4" width="18" height="18" rx="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M16 2v4M8 2v4M3 10h18" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3 class="amenity-title">Bespoke Concierge</h3>
+            <p class="amenity-text">Enjoy tailored luxury itineraries, from private helicopter charters and yacht tours to exclusive cultural excursions.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery-section section-padding">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-subtitle">Visual Pleasures</span>
+          <h2 class="section-title">A Glimpse of Paradise</h2>
+          <div class="divider"></div>
+          <p class="section-desc">Take a visual tour through L'Horizon and begin planning your luxury escape.</p>
+        </div>
+
+        <div class="gallery-grid">
+          <div class="gallery-item item-large">
+            <img src="assets/images/hero.png" alt="Sunset pool deck overlooking the sea">
+            <div class="gallery-hover-overlay">
+              <span class="gallery-tag">Resort Exterior</span>
+              <h4 class="gallery-item-title">Sunset Infinity Pool</h4>
+            </div>
+          </div>
+          <div class="gallery-item">
+            <img src="assets/images/suite_deluxe.png" alt="Deluxe Room Interior">
+            <div class="gallery-hover-overlay">
+              <span class="gallery-tag">Suites</span>
+              <h4 class="gallery-item-title">Deluxe Room Suite</h4>
+            </div>
+          </div>
+          <div class="gallery-item">
+            <img src="assets/images/suite_penthouse.png" alt="Penthouse living area">
+            <div class="gallery-hover-overlay">
+              <span class="gallery-tag">Suites</span>
+              <h4 class="gallery-item-title">Presidential Penthouse</h4>
+            </div>
+          </div>
+          <div class="gallery-item">
+            <img src="assets/images/suite_villa.png" alt="Sanctuary Villa pool deck">
+            <div class="gallery-hover-overlay">
+              <span class="gallery-tag">Sanctuaries</span>
+              <h4 class="gallery-item-title">Garden Plunge Pool</h4>
+            </div>
+          </div>
+          <div class="gallery-item">
+            <img src="assets/images/spa.png" alt="Spa wellness sanctuary">
+            <div class="gallery-hover-overlay">
+              <span class="gallery-tag">Wellness</span>
+              <h4 class="gallery-item-title">AURA Treatment Room</h4>
+            </div>
+          </div>
+          <div class="gallery-item item-wide">
+            <img src="assets/images/dining.png" alt="Fine dining terrace looking over ocean">
+            <div class="gallery-hover-overlay">
+              <span class="gallery-tag">Gastronomy</span>
+              <h4 class="gallery-item-title">Michelin Dining Terrace</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials / Reviews Section -->
+    <section id="testimonials" class="testimonials-section section-padding bg-darker">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-subtitle">Shared Impressions</span>
+          <h2 class="section-title">What Our Guests Say</h2>
+          <div class="divider"></div>
+        </div>
+
+        <div class="testimonials-container">
+          <div class="testimonial-carousel" id="testimonial-carousel">
+            <!-- Review 1 -->
+            <div class="testimonial-card active" id="review-1">
+              <div class="stars">★★★★★</div>
+              <p class="testimonial-text">"An absolute masterpiece of a hotel. The cliffside views from the Deluxe Ocean Suite took my breath away every morning. The staff anticipates every need before you even realize it."</p>
+              <div class="guest-info">
+                <span class="guest-name">Eleanor Vance</span>
+                <span class="guest-origin">London, UK</span>
+              </div>
+            </div>
+            
+            <!-- Review 2 -->
+            <div class="testimonial-card" id="review-2">
+              <div class="stars">★★★★★</div>
+              <p class="testimonial-text">"The Sanctuary Garden Villa offered the perfect seclusion for our anniversary. Having a private plunge pool surrounded by tropical plants felt like our own hidden paradise."</p>
+              <div class="guest-info">
+                <span class="guest-name">Marcus &amp; Kiara Dupont</span>
+                <span class="guest-origin">Paris, France</span>
+              </div>
+            </div>
+
+            <!-- Review 3 -->
+            <div class="testimonial-card" id="review-3">
+              <div class="stars">★★★★★</div>
+              <p class="testimonial-text">"Dinner at the terrace was an unforgettable sensory experience. The seafood pairing combined with the gentle sound of the waves and candlelit atmosphere was simply perfect."</p>
+              <div class="guest-info">
+                <span class="guest-name">Aleksei Romanov</span>
+                <span class="guest-origin">Zurich, Switzerland</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Carousel Controls -->
+          <div class="carousel-dots" id="carousel-controls">
+            <button class="dot active" data-slide="0" aria-label="Review 1"></button>
+            <button class="dot" data-slide="1" aria-label="Review 2"></button>
+            <button class="dot" data-slide="2" aria-label="Review 3"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact & Location Section -->
+    <section id="contact" class="contact-section section-padding">
+      <div class="container">
+        <div class="contact-grid">
+          <!-- Contact Info -->
+          <div class="contact-info-block">
+            <span class="section-subtitle">Get In Touch</span>
+            <h2 class="section-title">We Await Your Arrival</h2>
+            <div class="divider divider-left"></div>
+            <p class="contact-lead-text">Whether you seek detail on our suites, wish to orchestrate custom itineraries, or desire a private tour, our guest relations team is at your convenience.</p>
+            
+            <div class="contact-details">
+              <div class="contact-detail-item">
+                <div class="icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="10" r="3" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="detail-label">Location</h4>
+                  <p class="detail-val">128 Strada di Tramonti, Positano, Italy</p>
+                </div>
+              </div>
+
+              <div class="contact-detail-item">
+                <div class="icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="detail-label">Reservations & Info</h4>
+                  <p class="detail-val">+39 089 875 4400</p>
+                </div>
+              </div>
+
+              <div class="contact-detail-item">
+                <div class="icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke-linecap="round" stroke-linejoin="round"/>
+                    <polyline points="22,6 12,13 2,6" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="detail-label">Email</h4>
+                  <p class="detail-val">reservations@lhorizonresort.com</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact Form -->
+          <div class="contact-form-block">
+            <form id="contact-form" class="luxury-form">
+              <h3 class="form-title">Send An Inquiry</h3>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="contact-name">Full Name</label>
+                  <input type="text" id="contact-name" name="name" required placeholder="e.g., Jane Doe">
+                </div>
+                <div class="form-group">
+                  <label for="contact-email">Email Address</label>
+                  <input type="email" id="contact-email" name="email" required placeholder="e.g., jane@example.com">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="contact-subject">Subject</label>
+                <select id="contact-subject" name="subject">
+                  <option value="reservation">Reservation Inquiry</option>
+                  <option value="event">Private Events &amp; Weddings</option>
+                  <option value="special">Bespoke Concierge Request</option>
+                  <option value="general">General Inquiries</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="contact-message">Message</label>
+                <textarea id="contact-message" name="message" rows="5" required placeholder="How may we assist you with your stay?"></textarea>
+              </div>
+              <button type="submit" class="btn btn-gold btn-full" id="contact-submit-btn">Send Message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand-column">
+          <a href="#" class="footer-logo">
+            <span>L'HORIZON</span>
+            <span class="logo-subtitle">RESORT & SPA</span>
+          </a>
+          <p class="footer-about">An exclusive retreat celebrating the beauty of the coast, featuring bespoke accommodations and refined service for the modern epicurean.</p>
+        </div>
+        <div class="footer-links-column">
+          <h4 class="footer-title">Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#rooms">Suites &amp; Villas</a></li>
+            <li><a href="#amenities">Resort Amenities</a></li>
+            <li><a href="#gallery">Photo Gallery</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-column">
+          <h4 class="footer-title">Experiences</h4>
+          <ul class="footer-links">
+            <li><a href="#amenities">AURA Spa</a></li>
+            <li><a href="#amenities">Michelin Restaurant</a></li>
+            <li><a href="#contact">Private Events</a></li>
+            <li><a href="#contact">Bespoke Tours</a></li>
+          </ul>
+        </div>
+        <div class="footer-newsletter-column">
+          <h4 class="footer-title">Newsletter</h4>
+          <p class="newsletter-desc">Subscribe to receive exclusive offers, events, and seasonal updates from L'Horizon.</p>
+          <form id="newsletter-form" class="newsletter-form">
+            <label for="newsletter-email" class="sr-only">Email address</label>
+            <input type="email" id="newsletter-email" placeholder="Your Email Address" required>
+            <button type="submit" class="btn btn-gold" id="newsletter-btn">Subscribe</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="copyright">&copy; 2026 L'Horizon Resort &amp; Spa. All rights reserved.</p>
+        <div class="footer-socials">
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="Twitter">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20">
+              <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Booking Dialog Modal -->
+  <!-- MANDATORY: closedby="any" enables light-dismiss behavior on modern browsers -->
+  <dialog id="booking-dialog" closedby="any" aria-labelledby="booking-title">
+    <div class="dialog-content">
+      <button class="dialog-close-btn" commandfor="booking-dialog" command="close" aria-label="Close booking form">&times;</button>
+      
+      <div class="dialog-header">
+        <h2 id="booking-title">Book Your Sanctuary</h2>
+        <p class="dialog-subtitle">Specify your dates and preferences to reserve your luxury stay.</p>
+      </div>
+
+      <form id="booking-form" class="luxury-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="booking-checkin">Check-in Date</label>
+            <input type="date" id="booking-checkin" required>
+          </div>
+          <div class="form-group">
+            <label for="booking-checkout">Check-out Date</label>
+            <input type="date" id="booking-checkout" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="booking-room">Select Accommodation</label>
+            <select id="booking-room" required>
+              <option value="" disabled selected>Choose a suite or villa...</option>
+              <option value="deluxe">Deluxe Ocean Suite ($550/night)</option>
+              <option value="penthouse">Presidential Penthouse ($1,200/night)</option>
+              <option value="villa">Sanctuary Garden Villa ($850/night)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="booking-guests">Number of Guests</label>
+            <select id="booking-guests" required>
+              <option value="1">1 Guest</option>
+              <option value="2" selected>2 Guests</option>
+              <option value="3">3 Guests</option>
+              <option value="4">4 Guests</option>
+              <option value="5+">5+ Guests</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="booking-name">Full Name</label>
+            <input type="text" id="booking-name" required placeholder="e.g., John Smith">
+          </div>
+          <div class="form-group">
+            <label for="booking-email">Email Address</label>
+            <input type="email" id="booking-email" required placeholder="e.g., john@example.com">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="booking-notes">Special Requests &amp; Notes</label>
+          <textarea id="booking-notes" rows="3" placeholder="e.g., dietary requirements, airport shuttle, high floor..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-gold btn-full btn-large" id="booking-submit-btn">Confirm Reservation Inquiry</button>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- Room Detail Modals (Reusable structures) -->
+  <dialog id="room-detail-dialog" closedby="any" aria-labelledby="room-detail-title">
+    <div class="dialog-content room-detail-content">
+      <button class="dialog-close-btn" commandfor="room-detail-dialog" command="close" aria-label="Close details">&times;</button>
+      
+      <div id="room-detail-body">
+        <!-- Will be populated dynamically via JavaScript -->
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Script Modules -->
+  <script src="app.js" type="module"></script>
+</body>
+</html>
