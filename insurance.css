@@ -177,15 +177,13 @@ button {
 /* ==========================================================================
    HERO BANNER CARD
    ========================================================================== */
-.hero-banner-card {
+.hero-banner-card-full {
   position: relative;
   width: 100%;
   height: 550px;
-  border-radius: var(--radius-lg);
   overflow: hidden;
   display: flex;
   align-items: center;
-  padding: 0 80px;
   box-shadow: 0 20px 40px rgba(15, 41, 33, 0.1);
 }
 
@@ -212,72 +210,25 @@ button {
   height: 100%;
   background: linear-gradient(
     90deg,
-    rgba(15, 41, 33, 0.6) 0%,
+    rgba(15, 41, 33, 0.65) 0%,
     rgba(15, 41, 33, 0.3) 50%,
     rgba(15, 41, 33, 0.1) 100%
   );
 }
 
 /* Hero Top Bar Overlay (matches header overlay in screenshot) */
-.hero-top-bar {
-  position: absolute;
-  top: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  z-index: 5;
-  color: #ffffff;
-}
-
-.logo-white {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 1.25rem;
-  font-weight: 800;
-}
-
-.logo-icon-small {
-  width: 24px;
-  height: 24px;
-  fill: currentColor;
-}
-
-.hero-top-links {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  font-size: 0.75rem;
-}
-
-.hero-top-links a {
-  color: rgba(255, 255, 255, 0.85);
-}
-
-.hero-top-links a:hover {
-  color: #ffffff;
-}
-
-.hero-top-links a.hero-top-btn {
-  border: 1px solid #ffffff;
-  padding: 6px 16px;
-  border-radius: 20px;
-}
-
-.hero-top-links a.hero-top-btn:hover {
-  background-color: #ffffff;
-  color: var(--color-forest);
-}
-
 /* Hero Card Content */
-.hero-card-content {
+.hero-card-content-wrapper {
   position: relative;
   z-index: 3;
+  width: 100%;
+  pointer-events: none;
+}
+
+.hero-card-content {
   color: #ffffff;
   max-width: 500px;
+  pointer-events: auto;
 }
 
 .hero-card-title {
@@ -307,15 +258,22 @@ button {
 }
 
 /* Mouse Scroll Down element */
-.scroll-down-indicator {
+.scroll-down-indicator-wrapper {
   position: absolute;
   bottom: 40px;
-  left: 80px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 3;
-  display: flex;
+  width: 100%;
+  pointer-events: none;
+}
+
+.scroll-down-indicator {
+  display: inline-flex;
   align-items: center;
   gap: 12px;
   color: rgba(255, 255, 255, 0.8);
+  pointer-events: auto;
 }
 
 .mouse-icon {
@@ -749,9 +707,8 @@ button {
     gap: 30px;
   }
   
-  .hero-banner-card {
+  .hero-banner-card-full {
     height: 480px;
-    padding: 0 40px;
   }
   
   .hero-card-title {
@@ -777,9 +734,8 @@ button {
     display: none;
   }
   
-  .hero-banner-card {
+  .hero-banner-card-full {
     height: 400px;
-    padding: 0 24px;
   }
   
   .hero-card-title {
