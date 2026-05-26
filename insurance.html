@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Meta Tags -->
+  <title>Insurance Services | Safeguarding Your Valuables</title>
+  <meta name="description" content="Securing your peace of mind, today and tomorrow. Discover our range of customized insurance solutions including health, life, auto, and business coverage.">
+  <meta name="keywords" content="insurance, health insurance, life insurance, auto insurance, financial stability">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="insurance.css">
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <header class="ins-header">
+    <div class="ins-container header-wrapper">
+      <a href="#" class="ins-logo" id="logo-link">
+        <!-- Circular dotted sunburst icon from screenshot -->
+        <svg class="logo-icon" viewBox="0 0 100 100" fill="currentColor">
+          <circle cx="50" cy="18" r="5" />
+          <circle cx="73" cy="27" r="5" />
+          <circle cx="82" cy="50" r="5" />
+          <circle cx="73" cy="73" r="5" />
+          <circle cx="50" cy="82" r="5" />
+          <circle cx="27" cy="73" r="5" />
+          <circle cx="18" cy="50" r="5" />
+          <circle cx="27" cy="27" r="5" />
+          
+          <circle cx="50" cy="32" r="4.5" />
+          <circle cx="63" cy="37" r="4.5" />
+          <circle cx="68" cy="50" r="4.5" />
+          <circle cx="63" cy="63" r="4.5" />
+          <circle cx="50" cy="68" r="4.5" />
+          <circle cx="37" cy="63" r="4.5" />
+          <circle cx="32" cy="50" r="4.5" />
+          <circle cx="37" cy="37" r="4.5" />
+        </svg>
+        <span class="logo-text">insurance</span>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav class="ins-nav">
+        <ul class="ins-nav-list">
+          <li><a href="#" class="ins-nav-link active">Home</a></li>
+          <li class="has-megamenu">
+            <a href="#" class="ins-nav-link">Megamenu <span class="arrow-down">▼</span></a>
+          </li>
+          <li><a href="#" class="ins-nav-link">Insurance Services</a></li>
+          <li><a href="#" class="ins-nav-link">Blog Pages</a></li>
+          <li><a href="#" class="ins-nav-link">About</a></li>
+          <li><a href="#" class="ins-nav-link">Support</a></li>
+          <li class="has-dropdown">
+            <a href="#" class="ins-nav-link">Other Pages <span class="arrow-down">▼</span></a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Contact CTA -->
+      <a href="#contact" class="btn-contact" id="contact-btn">Contact us</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Banner Card -->
+    <section class="ins-container">
+      <div class="hero-banner-card">
+        <div class="hero-image-wrapper">
+          <img src="assets/images/insurance_hero.png" alt="Happy family outdoors in sunlit field" class="hero-img">
+          <div class="hero-img-overlay"></div>
+        </div>
+        
+        <!-- Header overlay inside Hero (similar to screenshot) -->
+        <div class="hero-top-bar">
+          <div class="logo-white">
+            <svg class="logo-icon-small" viewBox="0 0 100 100" fill="currentColor">
+              <circle cx="50" cy="18" r="5" />
+              <circle cx="73" cy="27" r="5" />
+              <circle cx="82" cy="50" r="5" />
+              <circle cx="73" cy="73" r="5" />
+              <circle cx="50" cy="82" r="5" />
+              <circle cx="27" cy="73" r="5" />
+              <circle cx="18" cy="50" r="5" />
+              <circle cx="27" cy="27" r="5" />
+            </svg>
+            <span>insurance</span>
+          </div>
+          <div class="hero-top-links">
+            <a href="#">Home</a>
+            <a href="#">Megamenu</a>
+            <a href="#">Insurance Services</a>
+            <a href="#">Blog Pages</a>
+            <a href="#">About</a>
+            <a href="#">Support</a>
+            <a href="#">Other Pages</a>
+            <a href="#" class="hero-top-btn">Contact us</a>
+          </div>
+        </div>
+
+        <div class="hero-card-content">
+          <h1 class="hero-card-title">Safeguarding<br>Your <span class="title-serif">Valuables</span></h1>
+          <a href="#solutions" class="hero-cta-link">Get started with a small step <span class="arrow-right">&rarr;</span></a>
+        </div>
+
+        <!-- Mouse Scroll Down indicator (from screenshot) -->
+        <div class="scroll-down-indicator">
+          <div class="mouse-icon">
+            <span class="mouse-wheel"></span>
+          </div>
+          <span class="scroll-text">Scroll Down</span>
+        </div>
+
+        <!-- Page slider indicators (from screenshot) -->
+        <div class="hero-side-slider">
+          <span class="slider-dot active"></span>
+          <span class="slider-dot"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Solutions Section with Tabs -->
+    <section id="solutions" class="solutions-section ins-container">
+      <div class="solutions-header">
+        <h2 class="solutions-title">Discover a range of<br><span class="title-serif">insurance solutions</span></h2>
+      </div>
+
+      <div class="solutions-tabs-container">
+        <!-- Vertical Tabs List -->
+        <div class="tabs-list" role="tablist" aria-label="Insurance Solutions">
+          <button class="tab-btn active" id="tab-health" role="tab" aria-selected="true" aria-controls="panel-health" data-tab="health">
+            Health Insurance
+          </button>
+          <button class="tab-btn" id="tab-life" role="tab" aria-selected="false" aria-controls="panel-life" data-tab="life">
+            Life Insurance
+          </button>
+          <button class="tab-btn" id="tab-auto" role="tab" aria-selected="false" aria-controls="panel-auto" data-tab="auto">
+            Auto Insurance
+          </button>
+          <button class="tab-btn" id="tab-disability" role="tab" aria-selected="false" aria-controls="panel-disability" data-tab="disability">
+            Disability Insurance
+          </button>
+          <button class="tab-btn" id="tab-business" role="tab" aria-selected="false" aria-controls="panel-business" data-tab="business">
+            Business Insurance
+          </button>
+          <button class="tab-btn" id="tab-umbrella" role="tab" aria-selected="false" aria-controls="panel-umbrella" data-tab="umbrella">
+            Umbrella Insurance
+          </button>
+        </div>
+
+        <!-- Dynamic Card Display (Mint green background) -->
+        <div class="tabs-content" id="solutions-panel">
+          <div class="solution-card-body" id="panel-content">
+            <div class="card-left-column">
+              <span class="card-category-label" id="card-tag">Health Insurance</span>
+              <h3 class="card-main-title" id="card-headline">Ensuring Your<br>Health Coverage</h3>
+            </div>
+            
+            <div class="card-right-column">
+              <div class="card-icon-arrow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <line x1="7" y1="17" x2="17" y2="7" />
+                  <polyline points="7,7 17,7 17,17" />
+                </svg>
+              </div>
+              <div class="card-pricing-block">
+                <span class="card-price-amount" id="card-price">$350</span>
+                <span class="card-price-subtext">Standard Insurance Start From</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Icon Feature Bar (3 Columns) -->
+      <div class="feature-bar">
+        <!-- Feature 1 -->
+        <div class="feature-item">
+          <div class="feature-icon-wrapper">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <polyline points="9,11 11,13 15,9"/>
+            </svg>
+          </div>
+          <h4 class="feature-title">Peace of Mind Guaranteed</h4>
+          <p class="feature-desc">Your content goes here. Edit or remove this text inline or in the module Content settings.</p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-item">
+          <div class="feature-icon-wrapper">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              <path d="M2 12h20"/>
+            </svg>
+          </div>
+          <h4 class="feature-title">Always Covered</h4>
+          <p class="feature-desc">Your content goes here. Edit or remove this text inline or in the module Content settings.</p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-item">
+          <div class="feature-icon-wrapper">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <line x1="12" y1="1" x2="12" y2="23"/>
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+          </div>
+          <h4 class="feature-title">Financial Stability</h4>
+          <p class="feature-desc">Your content goes here. Edit or remove this text inline or in the module Content settings.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Securing Peace of Mind Section (Two Column Layout) -->
+    <section class="securing-section ins-container">
+      <div class="securing-header text-center">
+        <!-- Logo marker -->
+        <div class="ins-logo-marker">
+          <svg class="logo-icon-small" viewBox="0 0 100 100" fill="currentColor">
+            <circle cx="50" cy="18" r="5" />
+            <circle cx="73" cy="27" r="5" />
+            <circle cx="82" cy="50" r="5" />
+            <circle cx="73" cy="73" r="5" />
+            <circle cx="50" cy="82" r="5" />
+            <circle cx="27" cy="73" r="5" />
+            <circle cx="18" cy="50" r="5" />
+            <circle cx="27" cy="27" r="5" />
+          </svg>
+          <span class="marker-text">insurance</span>
+        </div>
+        <h2 class="securing-title">Securing Your Peace of Mind,<br><span class="title-serif">Today and Tomorrow.</span></h2>
+      </div>
+
+      <div class="securing-grid">
+        <!-- Left details column -->
+        <div class="securing-left-panel">
+          <h3 class="securing-subtitle">We're best in<br>the Country</h3>
+          
+          <div class="metrics-list">
+            <!-- Unmatched Services -->
+            <div class="metric-item">
+              <div class="metric-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <circle cx="12" cy="8" r="7"/>
+                  <polyline points="8.21,13.89 7,23 12,20 17,23 15.79,13.88"/>
+                </svg>
+              </div>
+              <div class="metric-text-block">
+                <h4 class="metric-title">Unmatched Services</h4>
+                <p class="metric-desc">Ut non rutrum leo quis pretium augue. Donec rutrum venenatis turpis sitting amet auctor leo quam luctus.</p>
+              </div>
+            </div>
+
+            <!-- Large number text -->
+            <div class="large-number-block">
+              <span class="number-count">1.7B</span>
+              <p class="number-desc">Ut non rutrum leo quis pretium augue. Donec rutrum venenatis turpis sitting amet auctor leo quam luctus.</p>
+            </div>
+
+            <!-- Innovative Solutions -->
+            <div class="metric-item">
+              <div class="metric-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                  <polyline points="3.27,6.96 12,12.01 20.73,6.96"/>
+                  <line x1="12" y1="22.08" x2="12" y2="12"/>
+                </svg>
+              </div>
+              <div class="metric-text-block">
+                <h4 class="metric-title">Innovative Solutions</h4>
+                <p class="metric-desc">Ut non rutrum leo quis pretium augue. Donec rutrum venenatis turpis sitting amet auctor leo quam luctus.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right image column -->
+        <div class="securing-right-panel">
+          <div class="hiking-img-card">
+            <img src="assets/images/hiking.png" alt="Woman backpacker hiking in mountains" class="hiking-img">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Partners Logo Banner -->
+    <section class="partners-section">
+      <div class="ins-container">
+        <span class="partners-tagline">OUR PARTNER THAT HELPS US TO PROTECT YOU</span>
+        <div class="partners-grid">
+          <div class="partner-logo">
+            <span class="logo-name font-serif">Prudential</span>
+          </div>
+          <div class="partner-logo">
+            <span class="logo-name">STERLING</span>
+          </div>
+          <div class="partner-logo">
+            <span class="logo-name font-serif">UnitedHealthcare</span>
+          </div>
+          <div class="partner-logo">
+            <span class="logo-name">Continental <span class="logo-sub">Insurance</span></span>
+          </div>
+          <div class="partner-logo">
+            <span class="logo-name">Credo-Classic</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="ins-footer">
+    <div class="ins-container text-center">
+      <p class="footer-copy">&copy; 2026 insurance. All rights reserved. Designed for Divi Pixel.</p>
+    </div>
+  </footer>
+
+  <!-- Script File -->
+  <script src="insurance.js"></script>
+</body>
+</html>
