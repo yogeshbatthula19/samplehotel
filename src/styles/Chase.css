@@ -223,6 +223,7 @@ main {
   letter-spacing: 0.5px;
   margin-bottom: 24px;
   text-shadow: 2px 2px 0px #fff;
+  font-weight: 400;
 }
 
 .highlight-orange {
@@ -249,6 +250,7 @@ main {
   max-width: 700px;
   margin: 0 auto 36px auto;
   font-weight: 500;
+  font-style: normal;
 }
 
 /* Form input */
