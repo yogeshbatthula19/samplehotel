@@ -15,7 +15,7 @@
   --color-text-muted: #5C5C5C;
   
   --font-main: 'Plus Jakarta Sans', sans-serif;
-  --font-display: 'Bangers', cursive;
+  --font-display: 'Outfit', sans-serif;
   --font-hand: 'Comic Neue', cursive;
   
   --border-thick: 3px solid var(--color-border-dark);
@@ -220,7 +220,6 @@ main {
   font-size: 4.8rem;
   line-height: 1.05;
   letter-spacing: 0.5px;
-  text-transform: uppercase;
   margin-bottom: 24px;
   text-shadow: 2px 2px 0px #fff;
 }
@@ -380,19 +379,9 @@ main {
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
-/* Pattern repeat inside separator */
+/* Solid divider style matching Figma */
 .orange-separator-bar::before {
-  content: "CHASEY CHASEY CHASEY CHASEY CHASEY CHASEY CHASEY CHASEY CHASEY CHASEY CHASEY CHASEY CHASEY";
-  font-family: var(--font-display);
-  font-size: 2.2rem;
-  color: rgba(28, 28, 28, 0.15);
-  position: absolute;
-  white-space: nowrap;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%);
-  letter-spacing: 4px;
-  animation: marquee 20s linear infinite;
+  display: none;
 }
 
 /* ==========================================================================
@@ -557,12 +546,12 @@ main {
 }
 
 /* Adjust Comic strip panel span layout for grids */
-#panel-1, #panel-2, #panel-3, #panel-4 {
+#panel-1, #panel-2, #panel-3, #panel-4, #panel-5 {
   grid-column: span 2;
 }
 
 #panel-pitch {
-  grid-column: span 4;
+  grid-column: span 2;
 }
 
 /* Hover scales on comic panels */
@@ -599,9 +588,8 @@ main {
 .section-title {
   font-family: var(--font-display);
   font-size: 3.6rem;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
   margin-bottom: 16px;
-  text-transform: uppercase;
 }
 
 .section-subtitle {
@@ -643,6 +631,20 @@ main {
   align-items: center;
   justify-content: center;
   border-bottom: var(--border-thick);
+  overflow: hidden;
+}
+
+.card-graphic-wrapper-row {
+  width: 60%;
+  height: 100%;
+  border-right: var(--border-thick);
+  overflow: hidden;
+}
+
+.card-img-feature {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .card-info {
@@ -1002,9 +1004,8 @@ main {
 .cta-headline {
   font-family: var(--font-display);
   font-size: 3.4rem;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
   line-height: 1.1;
-  text-transform: uppercase;
   margin-bottom: 16px;
 }
 
