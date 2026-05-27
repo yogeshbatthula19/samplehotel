@@ -247,6 +247,7 @@ button {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 28%; /* Shifting image focus slightly down to show more sky/background */
 }
 
 .hero-img-overlay {
@@ -263,13 +264,13 @@ button {
   );
 }
 
-/* Hero Top Bar Overlay (matches header overlay in screenshot) */
 /* Hero Card Content */
 .hero-card-content-wrapper {
   position: relative;
   z-index: 3;
   width: 100%;
   pointer-events: none;
+  padding-top: 60px; /* Shifting text content down to prevent overlap with sticky header */
 }
 
 .hero-card-content {
