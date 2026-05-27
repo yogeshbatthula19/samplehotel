@@ -1410,6 +1410,137 @@ dialog.\:open::backdrop {
   }
 }
 
+/* mzima Beach Custom Header & Hero Styles */
+.resort-page-wrap #main-header {
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 1200px;
+  height: 74px;
+  background-color: rgba(235, 238, 240, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  padding: 0 8px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+}
+
+.resort-page-wrap #main-header.scrolled {
+  top: 15px;
+  height: 66px;
+  background-color: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.resort-page-wrap .header-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+}
+
+.resort-page-wrap .mzima-logo-text {
+  font-family: var(--font-serif);
+}
+
+.resort-page-wrap .mzima-primary {
+  color: #0F4C81;
+}
+
+.resort-page-wrap .mzima-secondary {
+  color: #2A9D8F;
+  margin-left: 4px;
+}
+
+.resort-page-wrap .nav-link {
+  color: #2C3E50 !important;
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  letter-spacing: 0.02em !important;
+  padding: 6px 4px !important;
+  transition: color 0.3s ease !important;
+}
+
+.resort-page-wrap .nav-link::after {
+  display: none !important; /* remove underlines */
+}
+
+.resort-page-wrap .nav-link:hover,
+.resort-page-wrap .nav-link.active {
+  color: #0F4C81 !important;
+}
+
+.resort-page-wrap #main-header.scrolled .nav-link {
+  color: #2C3E50 !important;
+}
+
+.resort-page-wrap #main-header.scrolled .nav-link:hover,
+.resort-page-wrap #main-header.scrolled .nav-link.active {
+  color: #0F4C81 !important;
+}
+
+/* Blue Book Now Button */
+.resort-page-wrap .btn-blue {
+  background-color: #0F4C81 !important;
+  color: #ffffff !important;
+  border-radius: 50px !important;
+  padding: 10px 28px !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  border: none !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  display: inline-block !important;
+}
+
+.resort-page-wrap .btn-blue:hover {
+  background-color: #1D6FA5 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(15, 76, 129, 0.2) !important;
+}
+
+/* Hero Title and Red/Coral Underline */
+.resort-page-wrap .hero-title {
+  font-family: var(--font-serif);
+  font-size: 4.8rem !important;
+  font-weight: 400 !important;
+  color: #ffffff !important;
+  margin-bottom: 20px !important;
+  letter-spacing: 0.02em !important;
+  text-transform: none !important;
+}
+
+.resort-page-wrap .hero-underline {
+  width: 120px;
+  height: 3px;
+  background-color: #E76F51; /* Coral/Red accent line */
+  margin: 0 auto;
+}
+
+@media (max-width: 991px) {
+  .resort-page-wrap #main-header {
+    top: 15px;
+    width: 94%;
+    height: 60px;
+    border-radius: 30px;
+  }
+  
+  .resort-page-wrap .nav-menu {
+    border-radius: 20px !important;
+    background-color: rgba(255, 255, 255, 0.98) !important;
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+  }
+}
 }
 
 /* Global Keyframes */

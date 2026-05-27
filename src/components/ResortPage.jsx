@@ -229,8 +229,17 @@ export default function ResortPage({ onPageChange }) {
       <header id="main-header" className={isScrolled ? 'scrolled' : ''}>
         <div className="header-container">
           <a href="#home" className="logo" id="header-logo" onClick={() => setActiveSection('home')}>
-            <span className="logo-light">L'HORIZON</span>
-            <span className="logo-subtitle">RESORT & SPA</span>
+            <div className="mzima-logo-wrap" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2Z" fill="#2A9D8F" opacity="0.15"/>
+                <path d="M12 7C12 7 13 9 14.5 9C16 9 16.5 8 16.5 8C16.5 8 15.5 10 13.5 11C15.5 12 16.5 14 16.5 14C16.5 14 16 13 14.5 13C13 13 12 15 12 15C12 15 11 13 9.5 13C8 13 7.5 14 7.5 14C7.5 14 8.5 12 10.5 11C8.5 10 7.5 8 7.5 8C7.5 8 8 9 9.5 9C11 9 12 7 12 7Z" fill="#E76F51"/>
+                <circle cx="12" cy="11" r="2" fill="#2A9D8F"/>
+              </svg>
+              <span className="mzima-logo-text" style={{ fontSize: '1.25rem', fontWeight: '700', letterSpacing: '0.5px' }}>
+                <span className="mzima-primary">mzima</span>
+                <span className="mzima-secondary">BEACH</span>
+              </span>
+            </div>
           </a>
           
           {/* Mobile Menu Toggle Button */}
@@ -250,29 +259,45 @@ export default function ResortPage({ onPageChange }) {
 
           <nav id="primary-navigation" className={`nav-menu ${isMobileMenuOpen ? 'active' : ''}`}>
             <ul className="nav-list">
-              {['home', 'rooms', 'amenities', 'gallery', 'testimonials', 'contact'].map((section) => (
-                <li key={section}>
-                  <a 
-                    href={`#${section}`} 
-                    className={`nav-link ${activeSection === section ? 'active' : ''}`}
-                    onClick={() => {
-                      setActiveSection(section);
-                      setIsMobileMenuOpen(false);
-                    }}
-                  >
-                    {section === 'testimonials' ? 'reviews' : section}
-                  </a>
-                </li>
-              ))}
+              <li>
+                <a href="#home" className={`nav-link ${activeSection === 'home' ? 'active' : ''}`} onClick={() => { setActiveSection('home'); setIsMobileMenuOpen(false); }}>
+                  Home
+                </a>
+              </li>
+              <li>
+                <a href="#rooms" className={`nav-link ${activeSection === 'rooms' ? 'active' : ''}`} onClick={() => { setActiveSection('rooms'); setIsMobileMenuOpen(false); }} style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                  Villas & Suites <span style={{ fontSize: '0.55rem', transform: 'scale(0.8)' }}>▼</span>
+                </a>
+              </li>
+              <li>
+                <a href="#amenities" className={`nav-link ${activeSection === 'amenities' ? 'active' : ''}`} onClick={() => { setActiveSection('amenities'); setIsMobileMenuOpen(false); }}>
+                  Experiences
+                </a>
+              </li>
+              <li>
+                <a href="#testimonials" className={`nav-link ${activeSection === 'testimonials' ? 'active' : ''}`} onClick={() => { setActiveSection('testimonials'); setIsMobileMenuOpen(false); }}>
+                  Cuisine & Culture
+                </a>
+              </li>
+              <li>
+                <a href="#gallery" className={`nav-link ${activeSection === 'gallery' ? 'active' : ''}`} onClick={() => { setActiveSection('gallery'); setIsMobileMenuOpen(false); }}>
+                  Gallery
+                </a>
+              </li>
+              <li>
+                <a href="#contact" className={`nav-link ${activeSection === 'contact' ? 'active' : ''}`} onClick={() => { setActiveSection('contact'); setIsMobileMenuOpen(false); }}>
+                  Contact Us
+                </a>
+              </li>
             </ul>
           </nav>
 
           <button 
-            className="btn btn-gold btn-book-now" 
+            className="btn btn-blue btn-book-now" 
             id="nav-booking-btn"
             onClick={() => setIsBookingOpen(true)}
           >
-            Book Your Stay
+            Book Now
           </button>
         </div>
       </header>
@@ -281,62 +306,13 @@ export default function ResortPage({ onPageChange }) {
         {/* Hero Section */}
         <section id="home" className="hero-section">
           <div className="hero-bg-wrapper">
-            <img src="assets/images/hero.png" alt="Stunning infinity pool overlooking the ocean at sunset" className="hero-image" />
+            <img src="assets/images/mzima_beach_hero.png" alt="Stunning coastal beach villa resort drone photograph" className="hero-image" />
             <div className="hero-overlay"></div>
           </div>
           
           <div className="hero-content">
-            <span className="hero-eyebrow">A sanctuary for the senses</span>
-            <h1 className="hero-title">Where Luxury Meets The Infinite Horizon</h1>
-            <p className="hero-lead">Nestled along pristine cliffs, L'Horizon offers an exquisite sanctuary of curated experiences, bespoke service, and refined oceanfront living.</p>
-            
-            <div className="hero-cta-group">
-              <button className="btn btn-gold btn-large" onClick={() => setIsBookingOpen(true)}>Reserve Now</button>
-              <a href="#rooms" className="btn btn-outline btn-large">Explore Suites</a>
-            </div>
-          </div>
-
-          {/* Quick Check Widget (Glassmorphic) */}
-          <div className="quick-check-widget">
-            <form className="quick-check-form" id="quick-check-form" onSubmit={handleQuickCheckSubmit}>
-              <div className="form-group-inline">
-                <label htmlFor="quick-checkin">Check-in</label>
-                <input 
-                  type="date" 
-                  id="quick-checkin" 
-                  required 
-                  min={new Date().toISOString().split('T')[0]}
-                  value={bookingFormData.checkin}
-                  onChange={(e) => setBookingFormData({...bookingFormData, checkin: e.target.value})}
-                />
-              </div>
-              <div className="form-group-inline">
-                <label htmlFor="quick-checkout">Check-out</label>
-                <input 
-                  type="date" 
-                  id="quick-checkout" 
-                  required 
-                  min={bookingFormData.checkin || new Date().toISOString().split('T')[0]}
-                  value={bookingFormData.checkout}
-                  onChange={(e) => setBookingFormData({...bookingFormData, checkout: e.target.value})}
-                />
-              </div>
-              <div className="form-group-inline">
-                <label htmlFor="quick-guests">Guests</label>
-                <select 
-                  id="quick-guests"
-                  value={bookingFormData.guests}
-                  onChange={(e) => setBookingFormData({...bookingFormData, guests: e.target.value})}
-                >
-                  <option value="1">1 Guest</option>
-                  <option value="2">2 Guests</option>
-                  <option value="3">3 Guests</option>
-                  <option value="4">4 Guests</option>
-                  <option value="5+">5+ Guests</option>
-                </select>
-              </div>
-              <button type="submit" className="btn btn-gold" id="quick-search-btn">Check Availability</button>
-            </form>
+            <h1 className="hero-title">Effortless Coastal Living</h1>
+            <div className="hero-underline"></div>
           </div>
         </section>
 
