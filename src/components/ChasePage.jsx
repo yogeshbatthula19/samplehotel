@@ -43,7 +43,7 @@ function SparkleStar({ color, size, x, y, onComplete }) {
 }
 
 // 3D Card Tilt wrapper using React mouse event handling
-function TiltCard({ children, className, id }) {
+function TiltCard({ children, className, id, delay }) {
   const [rotateX, setRotateX] = useState(0);
   const [rotateY, setRotateY] = useState(0);
   const [shadowX, setShadowX] = useState(10);
@@ -105,12 +105,14 @@ function TiltCard({ children, className, id }) {
         perspective: 1000,
         zIndex: isHovered ? 50 : (className.includes('card-middle') ? 20 : (className.includes('card-right') ? 15 : 10))
       }}
+      initial={{ y: 150, opacity: 0 }}
       animate={isHovered ? {
         rotateX: rotateX,
         rotateY: rotateY,
         rotateZ: 0,
         scale: 1.1,
         y: -20,
+        opacity: 1,
         boxShadow: `${shadowX}px ${shadowY}px 0px var(--color-border-dark)`
       } : {
         rotateX: 0,
@@ -118,9 +120,10 @@ function TiltCard({ children, className, id }) {
         rotateZ: baseRotate,
         scale: 1,
         y: baseTranslateY,
+        opacity: 1,
         boxShadow: '10px 10px 0px var(--color-border-dark)'
       }}
-      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+      transition={isHovered ? { type: 'spring', stiffness: 300, damping: 20 } : { type: 'spring', stiffness: 60, damping: 15, delay }}
     >
       {children}
     </motion.div>
@@ -298,13 +301,13 @@ export default function ChasePage({ onPageChange }) {
 
             {/* Hero Overlapping Graphic Cards with Tilt Effect */}
             <div className="hero-cards-wrapper" id="hero-interactive-cards">
-              <TiltCard className="card-left" id="hero-card-1">
+              <TiltCard className="card-left" id="hero-card-1" delay={0.25}>
                 <img src="assets/images/chase_hero_1.png" alt="Company Party illustration" className="card-img" />
               </TiltCard>
-              <TiltCard className="card-middle" id="hero-card-2">
+              <TiltCard className="card-middle" id="hero-card-2" delay={0.4}>
                 <img src="assets/images/chase_hero_2.png" alt="Office Meeting illustration" className="card-img" />
               </TiltCard>
-              <TiltCard className="card-right" id="hero-card-3">
+              <TiltCard className="card-right" id="hero-card-3" delay={0.55}>
                 <img src="assets/images/chase_hero_3.png" alt="Employee of the Month illustration" className="card-img" />
               </TiltCard>
             </div>
