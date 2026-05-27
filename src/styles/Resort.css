@@ -1,4 +1,5 @@
-:root {
+.resort-page-wrap {
+& {
   /* Color Palette - Warm Ivory & Champagne Gold Light Theme */
   --color-bg-primary: #faf8f5;
   --color-bg-secondary: #f4f1eb;
@@ -47,13 +48,13 @@
   padding: 0;
 }
 
-html {
+& {
   scroll-behavior: smooth;
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
 }
 
-body {
+& {
   background-color: var(--color-bg-primary);
   color: var(--color-text-primary);
   font-family: var(--font-sans);
@@ -121,10 +122,7 @@ button, input, select, textarea {
 /* Scroll-Driven Animations: native CSS mapping */
 @media (prefers-reduced-motion: no-preference) {
   @supports ((animation-timeline: scroll())) {
-    @keyframes grow-progress {
-      from { transform: scaleX(0); }
-      to { transform: scaleX(1); }
-    }
+    
 
     #progress {
       transform: scaleX(0); /* initial */
@@ -411,9 +409,7 @@ button, input, select, textarea {
   animation: zoom-out var(--transition-slow) forwards;
 }
 
-@keyframes zoom-out {
-  to { transform: scale(1); }
-}
+
 
 .hero-overlay {
   position: absolute;
@@ -437,12 +433,7 @@ button, input, select, textarea {
   animation: fade-in-up 1.2s cubic-bezier(0.1, 1, 0.1, 1) 0.3s forwards;
 }
 
-@keyframes fade-in-up {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+
 
 .hero-eyebrow {
   font-size: 0.85rem;
@@ -1283,7 +1274,7 @@ dialog.\:open::backdrop {
 }
 
 @media (max-width: 768px) {
-  :root {
+  & {
     --header-height-large: 70px;
   }
   
@@ -1416,5 +1407,24 @@ dialog.\:open::backdrop {
     flex-direction: column;
     gap: 20px;
     text-align: center;
+  }
+}
+
+}
+
+/* Global Keyframes */
+@keyframes grow-progress {
+      from { transform: scaleX(0); }
+      to { transform: scaleX(1); }
+    }
+
+@keyframes zoom-out {
+  to { transform: scale(1); }
+}
+
+@keyframes fade-in-up {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

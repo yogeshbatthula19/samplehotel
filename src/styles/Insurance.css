@@ -1,7 +1,8 @@
+.insurance-page-wrap {
 /* ==========================================================================
    DESIGN VARIABLES & SYSTEM
    ========================================================================== */
-:root {
+& {
   /* Colors */
   --color-forest: #0f2921;
   --color-forest-hover: #173f33;
@@ -41,13 +42,13 @@
   padding: 0;
 }
 
-html {
+& {
   scroll-behavior: smooth;
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
 }
 
-body {
+& {
   background-color: var(--color-bg-primary);
   color: var(--color-text-main);
   font-family: var(--font-sans);
@@ -344,10 +345,7 @@ button {
   animation: scroll-wheel 1.5s infinite;
 }
 
-@keyframes scroll-wheel {
-  0% { top: 6px; opacity: 1; }
-  100% { top: 16px; opacity: 0; }
-}
+
 
 .scroll-text {
   font-size: 0.7rem;
@@ -446,7 +444,7 @@ button {
   box-shadow: 0 10px 30px rgba(15, 41, 33, 0.05);
 }
 
-.solution-card-body {
+.solution-card-& {
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -455,7 +453,7 @@ button {
   transition: opacity var(--transition-fast);
 }
 
-.solution-card-body.fade {
+.solution-card-&.fade {
   opacity: 0;
 }
 
@@ -799,7 +797,7 @@ button {
     padding: 40px 30px;
   }
   
-  .solution-card-body {
+  .solution-card-& {
     flex-direction: column;
     align-items: flex-start;
     gap: 30px;
@@ -827,4 +825,12 @@ button {
     align-items: flex-start;
     gap: 10px;
   }
+}
+
+}
+
+/* Global Keyframes */
+@keyframes scroll-wheel {
+  0% { top: 6px; opacity: 1; }
+  100% { top: 16px; opacity: 0; }
 }

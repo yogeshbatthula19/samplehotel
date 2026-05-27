@@ -1,10 +1,11 @@
+.chase-page-wrap {
 /* ==========================================================================
    Chasey Comic-Book Style Landing Page Styling
    Theme: 1960s Pop Art / Neo-Brutalist Comic Book
    ========================================================================== */
 
 /* Typography & Variables */
-:root {
+& {
   --color-bg-cream: #FAF6EE;
   --color-border-dark: #1C1C1C;
   --color-accent-orange: #FF7A00;
@@ -35,7 +36,7 @@
   scroll-behavior: smooth;
 }
 
-body.chase-body {
+&.chase-& {
   font-family: var(--font-main);
   background-color: var(--color-bg-cream);
   color: var(--color-text-dark);
@@ -1130,46 +1131,16 @@ main {
    ========================================================================== */
 
 /* Star floating animation */
-@keyframes float-sparkle {
-  0% {
-    transform: translateY(0) rotate(0deg);
-  }
-  100% {
-    transform: translateY(-8px) rotate(15deg);
-  }
-}
+
 
 /* Bouncing Arrow */
-@keyframes bounce-arrow {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(12px);
-  }
-}
+
 
 /* Marquee text movement */
-@keyframes marquee {
-  0% {
-    transform: translateY(-50%) translateX(0);
-  }
-  100% {
-    transform: translateY(-50%) translateX(-50%);
-  }
-}
+
 
 /* Brain Spark Glow */
-@keyframes spark-glow {
-  0% {
-    transform: scale(0.8) rotate(0deg);
-    opacity: 0.5;
-  }
-  100% {
-    transform: scale(1.2) rotate(15deg);
-    opacity: 1;
-  }
-}
+
 
 /* Scroll reveal triggers */
 .scroll-reveal {
@@ -1323,5 +1294,46 @@ main {
     gap: 20px;
     flex-wrap: wrap;
     justify-content: center;
+  }
+}
+
+}
+
+/* Global Keyframes */
+@keyframes float-sparkle {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  100% {
+    transform: translateY(-8px) rotate(15deg);
+  }
+}
+
+@keyframes bounce-arrow {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(12px);
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateY(-50%) translateX(0);
+  }
+  100% {
+    transform: translateY(-50%) translateX(-50%);
+  }
+}
+
+@keyframes spark-glow {
+  0% {
+    transform: scale(0.8) rotate(0deg);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1.2) rotate(15deg);
+    opacity: 1;
   }
 }
