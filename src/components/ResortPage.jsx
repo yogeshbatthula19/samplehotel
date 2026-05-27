@@ -1,21 +1,20 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 import { 
   Calendar, MapPin, Phone, Mail, Menu, X, 
-  ChevronRight, Star, Compass, Waves, Utensils, 
-  Smile, Heart, Shield, HelpCircle, ArrowRight
+  ChevronRight, Star, ChevronLeft, Play, ArrowRight 
 } from 'lucide-react';
 import '../styles/Resort.css';
 
 const ROOM_DATA = {
   deluxe: {
-    title: "Deluxe Ocean Suite",
+    title: "Luxury Suite Room",
     size: "65 m²",
-    view: "Ocean View",
+    view: "Lake & Mountain View",
     guests: "2 Adults",
     price: "$550",
-    image: "assets/images/suite_deluxe.png",
-    description: "Our Deluxe Ocean Suite is designed to evoke absolute serenity. Features a spacious open-concept layout, custom teak furniture, a plush king-size bed with Egyptian cotton linens, and a private stone balcony directly overlooking the azure shoreline. The ensuite features a rain shower and hand-carved stone soaking tub.",
+    image: "assets/images/room_luxury.png",
+    description: "Our signature Luxury Suite Room is designed to evoke absolute serenity. Features a spacious open-concept layout, custom teak furniture, a plush king-size bed with Egyptian cotton linens, and a private stone balcony directly overlooking the lake and mountain scenery. The ensuite features a rain shower and hand-carved stone soaking tub.",
     amenities: [
       "Private cliffside terrace",
       "King-size bed",
@@ -26,13 +25,13 @@ const ROOM_DATA = {
     ]
   },
   penthouse: {
-    title: "Presidential Penthouse",
+    title: "Royal Penthouse Suite",
     size: "140 m²",
-    view: "Panoramic Harbor & Sea View",
+    view: "Panoramic Lake View",
     guests: "Up to 4 Adults",
     price: "$1,200",
-    image: "assets/images/suite_penthouse.png",
-    description: "Perched at the highest peak of the resort, the Presidential Penthouse represents the pinnacle of luxury. Featuring double-height ceilings, a lavish marble fireplace, and floor-to-ceiling glass doors opening onto an expansive private terrace. Includes private elevator access, a custom cocktail bar, and full butler service.",
+    image: "assets/images/resort_hero_128.png",
+    description: "Perched at the highest peak of the resort, the Royal Penthouse represents the pinnacle of luxury. Featuring double-height ceilings, a lavish marble fireplace, and floor-to-ceiling glass doors opening onto an expansive private terrace overlooking the entire mountain lake valley.",
     amenities: [
       "24/7 private butler service",
       "120 m² panoramic terrace",
@@ -45,10 +44,10 @@ const ROOM_DATA = {
   villa: {
     title: "Sanctuary Garden Villa",
     size: "110 m²",
-    view: "Cliffside & Lush Tropical Garden",
+    view: "Cliffside & Tropical Garden",
     guests: "3 Adults",
     price: "$850",
-    image: "assets/images/suite_villa.png",
+    image: "assets/images/memories_bg.png",
     description: "Tucked inside our lush Mediterranean gardens, the Sanctuary Garden Villa offers absolute privacy. The interior merges local stone and warm cedar woods, transitioning seamlessly onto a wide private sundeck. The outdoor terrace features a personal heated plunge pool, comfortable sun loungers, and an outdoor rain shower.",
     amenities: [
       "Private heated plunge pool",
@@ -64,39 +63,33 @@ const ROOM_DATA = {
 const REVIEWS = [
   {
     stars: "★★★★★",
-    text: "An absolute masterpiece of a hotel. The cliffside views from the Deluxe Ocean Suite took my breath away every morning. The staff anticipates every need before you even realize it.",
+    text: "The resort hotel was beyond our expectations. Every detail was curated to perfection, from the breathtaking views to the impeccable guest relations. Truly a golden memory.",
+    name: "Brenda Davis",
+    origin: "Business Owner"
+  },
+  {
+    stars: "★★★★★",
+    text: "An absolute masterpiece of a hotel. The scenic mountain terrace took my breath away every morning. The staff anticipates every need before you even realize it.",
     name: "Eleanor Vance",
     origin: "London, UK"
   },
   {
     stars: "★★★★★",
-    text: "The Sanctuary Garden Villa offered the perfect seclusion for our anniversary. Having a private plunge pool surrounded by tropical plants felt like our own hidden paradise.",
-    name: "Marcus & Kiara Dupont",
+    text: "Dinner at the terrace was an unforgettable sensory experience. The food pairing combined with the gentle sound of the wind and candlelit atmosphere was simply perfect.",
+    name: "Marcus Dupont",
     origin: "Paris, France"
-  },
-  {
-    stars: "★★★★★",
-    text: "Dinner at the terrace was an unforgettable sensory experience. The seafood pairing combined with the gentle sound of the waves and candlelit atmosphere was simply perfect.",
-    name: "Aleksei Romanov",
-    origin: "Zurich, Switzerland"
   }
 ];
 
 export default function ResortPage({ onPageChange }) {
-  // Navigation & Scroll states
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  // Carousel state
   const [activeReviewIndex, setActiveReviewIndex] = useState(0);
-
-  // Modal / Detail states
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [isDetailOpen, setIsDetailOpen] = useState(false);
   const [selectedRoomKey, setSelectedRoomKey] = useState('deluxe');
 
-  // Form states
   const [bookingFormData, setBookingFormData] = useState({
     checkin: '',
     checkout: '',
@@ -116,7 +109,6 @@ export default function ResortPage({ onPageChange }) {
 
   const [newsletterEmail, setNewsletterEmail] = useState('');
 
-  // Framer Motion Scroll Progress
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -124,7 +116,6 @@ export default function ResortPage({ onPageChange }) {
     restDelta: 0.001
   });
 
-  // Track scroll for shrinking header
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -133,9 +124,8 @@ export default function ResortPage({ onPageChange }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // IntersectionObserver for Scrollspy active nav links
   useEffect(() => {
-    const sections = ['home', 'rooms', 'amenities', 'gallery', 'testimonials', 'contact'];
+    const sections = ['home', 'about', 'services', 'testimonials', 'rooms', 'blog', 'contact'];
     const observers = sections.map(id => {
       const el = document.getElementById(id);
       if (!el) return null;
@@ -155,24 +145,17 @@ export default function ResortPage({ onPageChange }) {
     }).filter(Boolean);
 
     return () => {
-      observers.forEach(({ observer, el }) => observer.unobserve(el));
+      observers.forEach(({ observer, el }) => {
+        if (el) observer.unobserve(el);
+      });
     };
   }, []);
 
-  // Auto-cycle reviews carousel
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveReviewIndex(prev => (prev + 1) % REVIEWS.length);
-    }, 6000);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Booking Form Submission Handler
   const handleBookingSubmit = (e) => {
     e.preventDefault();
     const { name, email, room, checkin, checkout } = bookingFormData;
     alert(
-      `Reservation Inquiry Received\n\nThank you, ${name}. We have received your inquiry for the ${ROOM_DATA[room]?.title || 'Suite'} from ${checkin} to ${checkout}.\n\nOur concierge guest relations team will contact you at ${email} within 2 hours to finalize details and confirm your reservation.`
+      `Reservation Inquiry Received\n\nThank you, ${name}. We have received your inquiry for the ${ROOM_DATA[room]?.title || 'Suite'} from ${checkin} to ${checkout}.\n\nOur concierge guest relations team will contact you at ${email} within 2 hours.`
     );
     setBookingFormData({
       checkin: '',
@@ -186,17 +169,15 @@ export default function ResortPage({ onPageChange }) {
     setIsBookingOpen(false);
   };
 
-  // Quick Check Widget Submission
   const handleQuickCheckSubmit = (e) => {
     e.preventDefault();
     setIsBookingOpen(true);
   };
 
-  // Contact Form Submission
   const handleContactSubmit = (e) => {
     e.preventDefault();
     alert(
-      `Inquiry Sent Successfully\n\nDear ${contactFormData.name},\n\nYour message has been encrypted and dispatched to our Guest Relations department. An advisor will review your message and get in touch at ${contactFormData.email} shortly.`
+      `Inquiry Sent Successfully\n\nDear ${contactFormData.name},\n\nYour message has been sent to our Guest Relations department. An advisor will get in touch at ${contactFormData.email} shortly.`
     );
     setContactFormData({
       name: '',
@@ -206,11 +187,10 @@ export default function ResortPage({ onPageChange }) {
     });
   };
 
-  // Newsletter Submission
   const handleNewsletterSubmit = (e) => {
     e.preventDefault();
     alert(
-      `Welcome to L'Horizon Circle\n\nYou have been subscribed with ${newsletterEmail}. You will now receive private seasonal packages, event listings, and bespoke updates before the general public.`
+      `Welcome to Resort Hotel Circle\n\nYou have been subscribed with ${newsletterEmail}.`
     );
     setNewsletterEmail('');
   };
@@ -220,32 +200,33 @@ export default function ResortPage({ onPageChange }) {
   return (
     <div className="resort-page-wrap">
       {/* Scroll Progress Indicator */}
-      <motion.div 
-        id="progress" 
-        style={{ scaleX }}
-      />
+      <motion.div id="progress" style={{ scaleX }} />
 
       {/* Header Navigation */}
       <header id="main-header" className={isScrolled ? 'scrolled' : ''}>
         <div className="header-container">
+          <nav className="header-nav-left">
+            <ul className="nav-list">
+              <li><a href="#home" className={`nav-link ${activeSection === 'home' ? 'active' : ''}`}>Home</a></li>
+              <li><a href="#about" className={`nav-link ${activeSection === 'about' ? 'active' : ''}`}>About</a></li>
+              <li><a href="#rooms" className={`nav-link ${activeSection === 'rooms' ? 'active' : ''}`}>Rooms</a></li>
+            </ul>
+          </nav>
+
           <a href="#home" className="logo" id="header-logo" onClick={() => setActiveSection('home')}>
-            <div className="mzima-logo-wrap" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2Z" fill="#2A9D8F" opacity="0.15"/>
-                <path d="M12 7C12 7 13 9 14.5 9C16 9 16.5 8 16.5 8C16.5 8 15.5 10 13.5 11C15.5 12 16.5 14 16.5 14C16.5 14 16 13 14.5 13C13 13 12 15 12 15C12 15 11 13 9.5 13C8 13 7.5 14 7.5 14C7.5 14 8.5 12 10.5 11C8.5 10 7.5 8 7.5 8C7.5 8 8 9 9.5 9C11 9 12 7 12 7Z" fill="#E76F51"/>
-                <circle cx="12" cy="11" r="2" fill="#2A9D8F"/>
-              </svg>
-              <span className="mzima-logo-text" style={{ fontSize: '1.25rem', fontWeight: '700', letterSpacing: '0.5px' }}>
-                <span className="mzima-primary">mzima</span>
-                <span className="mzima-secondary">BEACH</span>
-              </span>
-            </div>
+            <span className="logo-title-text">Resort Hotel</span>
           </a>
-          
+
+          <nav className="header-nav-right">
+            <ul className="nav-list">
+              <li><a href="#services" className={`nav-link ${activeSection === 'services' ? 'active' : ''}`}>Gallery</a></li>
+              <li><a href="#contact" className={`nav-link ${activeSection === 'contact' ? 'active' : ''}`}>Contact</a></li>
+            </ul>
+          </nav>
+
           {/* Mobile Menu Toggle Button */}
           <button 
             className="mobile-nav-toggle" 
-            aria-controls="primary-navigation" 
             aria-expanded={isMobileMenuOpen}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
@@ -256,432 +237,325 @@ export default function ResortPage({ onPageChange }) {
               <span className="line line3"></span>
             </div>
           </button>
+        </div>
 
-          <nav id="primary-navigation" className={`nav-menu ${isMobileMenuOpen ? 'active' : ''}`}>
-            <ul className="nav-list">
-              <li>
-                <a href="#home" className={`nav-link ${activeSection === 'home' ? 'active' : ''}`} onClick={() => { setActiveSection('home'); setIsMobileMenuOpen(false); }}>
-                  Home
-                </a>
-              </li>
-              <li>
-                <a href="#rooms" className={`nav-link ${activeSection === 'rooms' ? 'active' : ''}`} onClick={() => { setActiveSection('rooms'); setIsMobileMenuOpen(false); }} style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                  Villas & Suites <span style={{ fontSize: '0.55rem', transform: 'scale(0.8)' }}>▼</span>
-                </a>
-              </li>
-              <li>
-                <a href="#amenities" className={`nav-link ${activeSection === 'amenities' ? 'active' : ''}`} onClick={() => { setActiveSection('amenities'); setIsMobileMenuOpen(false); }}>
-                  Experiences
-                </a>
-              </li>
-              <li>
-                <a href="#testimonials" className={`nav-link ${activeSection === 'testimonials' ? 'active' : ''}`} onClick={() => { setActiveSection('testimonials'); setIsMobileMenuOpen(false); }}>
-                  Cuisine & Culture
-                </a>
-              </li>
-              <li>
-                <a href="#gallery" className={`nav-link ${activeSection === 'gallery' ? 'active' : ''}`} onClick={() => { setActiveSection('gallery'); setIsMobileMenuOpen(false); }}>
-                  Gallery
-                </a>
-              </li>
-              <li>
-                <a href="#contact" className={`nav-link ${activeSection === 'contact' ? 'active' : ''}`} onClick={() => { setActiveSection('contact'); setIsMobileMenuOpen(false); }}>
-                  Contact Us
-                </a>
-              </li>
+        {/* Mobile Navigation Dropdown */}
+        {isMobileMenuOpen && (
+          <nav className="mobile-nav-menu">
+            <ul className="mobile-nav-list">
+              <li><a href="#home" onClick={() => setIsMobileMenuOpen(false)}>Home</a></li>
+              <li><a href="#about" onClick={() => setIsMobileMenuOpen(false)}>About</a></li>
+              <li><a href="#services" onClick={() => setIsMobileMenuOpen(false)}>Services</a></li>
+              <li><a href="#rooms" onClick={() => setIsMobileMenuOpen(false)}>Rooms</a></li>
+              <li><a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>Contact</a></li>
             </ul>
           </nav>
-
-          <button 
-            className="btn btn-blue btn-book-now" 
-            id="nav-booking-btn"
-            onClick={() => setIsBookingOpen(true)}
-          >
-            Book Now
-          </button>
-        </div>
+        )}
       </header>
 
       <main>
         {/* Hero Section */}
         <section id="home" className="hero-section">
           <div className="hero-bg-wrapper">
-            <img src="assets/images/mzima_beach_hero.png" alt="Stunning coastal beach villa resort drone photograph" className="hero-image" />
+            <img src="assets/images/resort_hero_128.png" alt="Outdoor lounge overlooking mountains" className="hero-image" />
             <div className="hero-overlay"></div>
           </div>
           
           <div className="hero-content">
-            <h1 className="hero-title">Effortless Coastal Living</h1>
-            <div className="hero-underline"></div>
+            <div className="hero-stars">
+              <Star size={16} fill="var(--color-gold)" stroke="none" />
+              <Star size={16} fill="var(--color-gold)" stroke="none" />
+              <Star size={16} fill="var(--color-gold)" stroke="none" />
+              <Star size={16} fill="var(--color-gold)" stroke="none" />
+              <Star size={16} fill="var(--color-gold)" stroke="none" />
+            </div>
+            <h1 className="hero-title">Resort Hotel 128</h1>
+            <p className="hero-lead">Welcome to the place where luxury meets the infinite horizon. Experience breathtaking nature and premium boutique rooms.</p>
+          </div>
+
+          {/* Quick Check Availability Bar */}
+          <div className="quick-check-widget">
+            <form className="quick-check-form" onSubmit={handleQuickCheckSubmit}>
+              <div className="form-group-inline">
+                <label htmlFor="quick-checkin">Check-in</label>
+                <input 
+                  type="date" 
+                  id="quick-checkin" 
+                  required 
+                  min={new Date().toISOString().split('T')[0]}
+                  value={bookingFormData.checkin}
+                  onChange={(e) => setBookingFormData({...bookingFormData, checkin: e.target.value})}
+                />
+              </div>
+              <div className="form-group-inline">
+                <label htmlFor="quick-checkout">Check-out</label>
+                <input 
+                  type="date" 
+                  id="quick-checkout" 
+                  required 
+                  min={bookingFormData.checkin || new Date().toISOString().split('T')[0]}
+                  value={bookingFormData.checkout}
+                  onChange={(e) => setBookingFormData({...bookingFormData, checkout: e.target.value})}
+                />
+              </div>
+              <div className="form-group-inline">
+                <label htmlFor="quick-guests">Guests</label>
+                <select 
+                  id="quick-guests"
+                  value={bookingFormData.guests}
+                  onChange={(e) => setBookingFormData({...bookingFormData, guests: e.target.value})}
+                >
+                  <option value="1">1 Guest</option>
+                  <option value="2">2 Guests</option>
+                  <option value="3">3 Guests</option>
+                  <option value="4">4 Guests</option>
+                </select>
+              </div>
+              <button type="submit" className="btn btn-green" id="quick-search-btn">Check Now</button>
+            </form>
           </div>
         </section>
 
-        {/* Rooms & Suites Section */}
+        {/* Section 1: Make Your Golden Memories */}
+        <section id="about" className="memories-section section-padding">
+          <div className="container memories-grid-container">
+            <div className="memories-text-content">
+              <div className="section-stars">
+                <Star size={14} fill="var(--color-gold)" stroke="none" />
+                <Star size={14} fill="var(--color-gold)" stroke="none" />
+                <Star size={14} fill="var(--color-gold)" stroke="none" />
+                <Star size={14} fill="var(--color-gold)" stroke="none" />
+                <Star size={14} fill="var(--color-gold)" stroke="none" />
+              </div>
+              <h2 className="memories-heading">Make Your Golden Memories</h2>
+              <p className="memories-p">Our resort hotel provides the ultimate luxury experience. Nestled inside mountain scenery and pristine shores, we offer refined living, premium services, and curated experiences designed to help you create lifelong memories.</p>
+              <button className="btn btn-green btn-large" onClick={() => setIsBookingOpen(true)}>Explore Resort</button>
+            </div>
+            
+            <div className="memories-image-collage">
+              <div className="collage-bg-img-wrap">
+                <img src="assets/images/memories_bg.png" alt="Tropical resort pool building" className="collage-bg-img" />
+              </div>
+              <div className="collage-fg-img-wrap">
+                <img src="assets/images/memories_fg.png" alt="Balcony overlooking lake" className="collage-fg-img" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Features / Stats strip */}
+        <section className="stats-banner-section">
+          <div className="container stats-flex-container">
+            <div className="stat-item">
+              <h4 className="stat-value">Ocean View Suites</h4>
+              <p className="stat-label">120 Villas & Suites</p>
+            </div>
+            <div className="stat-item">
+              <h4 className="stat-value">AURA Wellness Spa</h4>
+              <p className="stat-label">5 Treatment Chambers</p>
+            </div>
+            <div className="stat-item">
+              <h4 className="stat-value">Michelin Fine Dining</h4>
+              <p className="stat-label">3 Signature Restaurants</p>
+            </div>
+            <div className="stat-item">
+              <h4 className="stat-value">Direct Private Shore</h4>
+              <p className="stat-label">Private Beachfront Access</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 2: Our Services */}
+        <section id="services" className="services-section section-padding">
+          <div className="container">
+            <div className="section-header text-center">
+              <span className="section-subtitle">OUR SERVICES</span>
+              <h2 className="section-title">Our Services</h2>
+              <p className="section-desc">Experience world-class hospitality, gourmet cuisines, and deep relaxation in our curated facilities.</p>
+            </div>
+
+            <div className="services-grid">
+              {/* Card 1 */}
+              <div className="service-card">
+                <div className="service-img-wrap">
+                  <img src="assets/images/service_spa.png" alt="Woman at spa pool" className="service-img" />
+                </div>
+                <h3 className="service-card-title">Spa & Wellness</h3>
+                <p className="service-card-text">Indulge in holistic therapies and signature botanical massages in our relaxing wellness chambers.</p>
+              </div>
+
+              {/* Card 2 */}
+              <div className="service-card">
+                <div className="service-img-wrap">
+                  <img src="assets/images/service_events.png" alt="Banquet hall dinner" className="service-img" />
+                </div>
+                <h3 className="service-card-title">Events & Meetings</h3>
+                <p className="service-card-text">Host your special occasions, weddings, and premium meetings in our luxurious banquet halls.</p>
+              </div>
+
+              {/* Card 3 */}
+              <div className="service-card">
+                <div className="service-img-wrap">
+                  <img src="assets/images/service_restaurant.png" alt="Restaurant table dining" className="service-img" />
+                </div>
+                <h3 className="service-card-title">Restaurant & Bar</h3>
+                <p className="service-card-text">Savor delectable dishes crafted by Michelin-starred culinary artists using organic produce.</p>
+              </div>
+            </div>
+
+            <div className="text-center" style={{ marginTop: '40px' }}>
+              <button className="btn btn-green" onClick={() => setIsBookingOpen(true)}>View More</button>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 3: Testimonials */}
+        <section id="testimonials" className="testimonials-section section-padding bg-dark-green">
+          <div className="container">
+            <div className="section-header text-center">
+              <span className="section-subtitle" style={{ color: 'var(--color-gold)' }}>REVIEWS</span>
+              <h2 className="section-title" style={{ color: '#ffffff' }}>Testimonials</h2>
+            </div>
+
+            <div className="testimonials-container text-center">
+              <div className="stars" style={{ color: 'var(--color-gold)', fontSize: '1.25rem', marginBottom: '16px' }}>
+                {REVIEWS[activeReviewIndex].stars}
+              </div>
+              <p className="testimonial-quote">
+                "{REVIEWS[activeReviewIndex].text}"
+              </p>
+              
+              <div className="reviewer-profile" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginTop: '30px' }}>
+                <div className="reviewer-avatar">
+                  <span className="avatar-initials">{REVIEWS[activeReviewIndex].name.charAt(0)}</span>
+                </div>
+                <div className="reviewer-info text-left">
+                  <h4 className="reviewer-name">{REVIEWS[activeReviewIndex].name}</h4>
+                  <p className="reviewer-role">{REVIEWS[activeReviewIndex].origin}</p>
+                </div>
+              </div>
+
+              {/* Carousel controls */}
+              <div className="carousel-controls" style={{ display: 'flex', justifyContent: 'center', gap: '15px', marginTop: '40px' }}>
+                <button 
+                  className="carousel-btn"
+                  onClick={() => setActiveReviewIndex(prev => (prev - 1 + REVIEWS.length) % REVIEWS.length)}
+                  aria-label="Previous review"
+                >
+                  <ChevronLeft size={20} />
+                </button>
+                <button 
+                  className="carousel-btn"
+                  onClick={() => setActiveReviewIndex(prev => (prev + 1) % REVIEWS.length)}
+                  aria-label="Next review"
+                >
+                  <ChevronRight size={20} />
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 4: Rooms & Living */}
         <section id="rooms" className="rooms-section section-padding">
           <div className="container">
             <div className="section-header text-center">
-              <span class="section-subtitle">Exquisite Accommodations</span>
-              <h2 className="section-title">Rooms & Suites</h2>
-              <div className="divider"></div>
-              <p className="section-desc">Each of our sanctuaries features premium amenities, private terraces, and breathtaking views of the azure coast.</p>
+              <div className="section-stars">
+                <Star size={14} fill="var(--color-gold)" stroke="none" />
+                <Star size={14} fill="var(--color-gold)" stroke="none" />
+                <Star size={14} fill="var(--color-gold)" stroke="none" />
+                <Star size={14} fill="var(--color-gold)" stroke="none" />
+                <Star size={14} fill="var(--color-gold)" stroke="none" />
+              </div>
+              <h2 className="section-title">Rooms & Living</h2>
+              <p className="section-desc">Take a look at our carefully designed living spaces that merge modern luxury with comfort.</p>
             </div>
 
-            <div className="rooms-grid">
-              {/* Room 1 */}
-              <div className="room-card" id="room-deluxe">
+            <div className="rooms-carousel-wrapper">
+              <div className="room-card-side side-left">
+                <img src="assets/images/resort_hero_128.png" alt="Side view room preview" />
+              </div>
+
+              <div className="room-card-center">
                 <div className="room-img-container">
-                  <img src="assets/images/suite_deluxe.png" alt="Deluxe Ocean Suite interior" className="room-img" />
-                  <div className="room-badge">Popular</div>
+                  <img src="assets/images/room_luxury.png" alt="Luxury room suite bedroom" />
                 </div>
-                <div className="room-info">
-                  <div className="room-meta">
-                    <span className="room-size">65 m²</span>
-                    <span className="room-view">Ocean View</span>
-                  </div>
-                  <h3 className="room-title">Deluxe Ocean Suite</h3>
-                  <p className="room-text">A masterfully styled retreat featuring custom oak woodwork, a private ocean terrace, and a spa-inspired stone bathroom.</p>
-                  <div className="room-price-row">
-                    <div className="room-price">
-                      <span className="price-amount">$550</span>
-                      <span className="price-unit">/ night</span>
-                    </div>
-                    <button 
-                      className="btn btn-text room-details-trigger" 
-                      onClick={() => {
-                        setSelectedRoomKey('deluxe');
-                        setIsDetailOpen(true);
-                      }}
-                    >
-                      View Details &rarr;
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Room 2 */}
-              <div className="room-card" id="room-penthouse">
-                <div className="room-img-container">
-                  <img src="assets/images/suite_penthouse.png" alt="Presidential Penthouse living area" className="room-img" />
-                  <div className="room-badge">Exclusive</div>
-                </div>
-                <div className="room-info">
-                  <div className="room-meta">
-                    <span className="room-size">140 m²</span>
-                    <span className="room-view">Panoramic View</span>
-                  </div>
-                  <h3 className="room-title">Presidential Penthouse</h3>
-                  <p className="room-text">Perched at our highest point, this grand space features private elevator access, double-height ceilings, and a marble fireplace.</p>
-                  <div className="room-price-row">
-                    <div className="room-price">
-                      <span className="price-amount">$1,200</span>
-                      <span className="price-unit">/ night</span>
-                    </div>
-                    <button 
-                      className="btn btn-text room-details-trigger"
-                      onClick={() => {
-                        setSelectedRoomKey('penthouse');
-                        setIsDetailOpen(true);
-                      }}
-                    >
-                      View Details &rarr;
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Room 3 */}
-              <div className="room-card" id="room-villa">
-                <div className="room-img-container">
-                  <img src="assets/images/suite_villa.png" alt="Sanctuary Garden Villa pool deck" className="room-img" />
-                  <div className="room-badge">Private Pool</div>
-                </div>
-                <div className="room-info">
-                  <div className="room-meta">
-                    <span className="room-size">110 m²</span>
-                    <span className="room-view">Garden & Cliff View</span>
-                  </div>
-                  <h3 className="room-title">Sanctuary Garden Villa</h3>
-                  <p className="room-text">Tucked away in lush tropical foliage, our private villas offer ultimate seclusion with personal plunge pools and outdoor showers.</p>
-                  <div className="room-price-row">
-                    <div className="room-price">
-                      <span className="price-amount">$850</span>
-                      <span className="price-unit">/ night</span>
-                    </div>
-                    <button 
-                      className="btn btn-text room-details-trigger"
-                      onClick={() => {
-                        setSelectedRoomKey('villa');
-                        setIsDetailOpen(true);
-                      }}
-                    >
-                      View Details &rarr;
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Amenities Section */}
-        <section id="amenities" className="amenities-section section-padding bg-darker">
-          <div className="container">
-            <div className="section-header text-center">
-              <span class="section-subtitle">The L'Horizon Experience</span>
-              <h2 className="section-title">Curated Guest Conveniences</h2>
-              <div className="divider"></div>
-              <p className="section-desc">From check-in to check-out, immerse yourself in world-class amenities designed to elevate your stay.</p>
-            </div>
-
-            <div className="amenities-grid">
-              {/* Amenity 1 */}
-              <div className="amenity-card">
-                <div className="amenity-icon">
-                  <Waves size={28} strokeWidth={1.5} />
-                </div>
-                <h3 className="amenity-title">Infinity Cliffside Pool</h3>
-                <p className="amenity-text">Dive into our signature pool that seamlessly blends into the sky, complete with custom sun lounges and poolside butler service.</p>
-              </div>
-
-              {/* Amenity 2 */}
-              <div className="amenity-card">
-                <div className="amenity-icon">
-                  <Utensils size={28} strokeWidth={1.5} />
-                </div>
-                <h3 className="amenity-title">Michelin Dining</h3>
-                <p className="amenity-text">Savor fine-dining creations under the stars, showcasing locally-sourced marine ingredients and international culinary artistry.</p>
-              </div>
-
-              {/* Amenity 3 */}
-              <div className="amenity-card">
-                <div className="amenity-icon">
-                  <Compass size={28} strokeWidth={1.5} />
-                </div>
-                <h3 className="amenity-title">AURA Spa & Wellness</h3>
-                <p className="amenity-text">Restore body and mind in our serene sanctuaries, offering stone therapies, organic botanical facials, and yoga sessions.</p>
-              </div>
-
-              {/* Amenity 4 */}
-              <div className="amenity-card">
-                <div className="amenity-icon">
-                  <Calendar size={28} strokeWidth={1.5} />
-                </div>
-                <h3 className="amenity-title">Bespoke Concierge</h3>
-                <p className="amenity-text">Enjoy tailored luxury itineraries, from private helicopter charters and yacht tours to exclusive cultural excursions.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Gallery Section */}
-        <section id="gallery" className="gallery-section section-padding">
-          <div className="container">
-            <div className="section-header text-center">
-              <span class="section-subtitle">Visual Pleasures</span>
-              <h2 className="section-title">A Glimpse of Paradise</h2>
-              <div className="divider"></div>
-              <p className="section-desc">Take a visual tour through L'Horizon and begin planning your luxury escape.</p>
-            </div>
-
-            <div className="gallery-grid">
-              <div className="gallery-item item-large">
-                <img src="assets/images/hero.png" alt="Sunset pool deck overlooking the sea" />
-                <div className="gallery-hover-overlay">
-                  <span className="gallery-tag">Resort Exterior</span>
-                  <h4 className="gallery-item-title">Sunset Infinity Pool</h4>
-                </div>
-              </div>
-              <div className="gallery-item">
-                <img src="assets/images/suite_deluxe.png" alt="Deluxe Room Interior" />
-                <div className="gallery-hover-overlay">
-                  <span className="gallery-tag">Suites</span>
-                  <h4 className="gallery-item-title">Deluxe Room Suite</h4>
-                </div>
-              </div>
-              <div className="gallery-item">
-                <img src="assets/images/suite_penthouse.png" alt="Penthouse living area" />
-                <div className="gallery-hover-overlay">
-                  <span className="gallery-tag">Suites</span>
-                  <h4 className="gallery-item-title">Presidential Penthouse</h4>
-                </div>
-              </div>
-              <div className="gallery-item">
-                <img src="assets/images/suite_villa.png" alt="Sanctuary Villa pool deck" />
-                <div className="gallery-hover-overlay">
-                  <span className="gallery-tag">Sanctuaries</span>
-                  <h4 className="gallery-item-title">Garden Plunge Pool</h4>
-                </div>
-              </div>
-              <div className="gallery-item">
-                <img src="assets/images/spa.png" alt="Spa wellness sanctuary" />
-                <div className="gallery-hover-overlay">
-                  <span className="gallery-tag">Wellness</span>
-                  <h4 className="gallery-item-title">AURA Treatment Room</h4>
-                </div>
-              </div>
-              <div className="gallery-item item-wide">
-                <img src="assets/images/dining.png" alt="Fine dining terrace looking over ocean" />
-                <div className="gallery-hover-overlay">
-                  <span className="gallery-tag">Gastronomy</span>
-                  <h4 className="gallery-item-title">Michelin Dining Terrace</h4>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Testimonials / Reviews Section */}
-        <section id="testimonials" className="testimonials-section section-padding bg-darker">
-          <div className="container">
-            <div className="section-header text-center">
-              <span class="section-subtitle">Shared Impressions</span>
-              <h2 className="section-title">What Our Guests Say</h2>
-              <div className="divider"></div>
-            </div>
-
-            <div className="testimonials-container">
-              <div className="testimonial-carousel" style={{ minHeight: '250px', position: 'relative' }}>
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={activeReviewIndex}
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -15 }}
-                    transition={{ duration: 0.4 }}
-                    style={{ position: 'absolute', width: '100%' }}
-                    className="testimonial-card-react"
-                  >
-                    <div className="stars" style={{ color: 'var(--color-gold)', fontSize: '1.25rem', marginBottom: '16px' }}>
-                      {REVIEWS[activeReviewIndex].stars}
-                    </div>
-                    <p className="testimonial-text" style={{ fontSize: '1.4rem', fontFamily: 'var(--font-serif)', fontStyle: 'italic', color: 'var(--color-text-primary)', marginBottom: '24px', lineHeight: '1.6' }}>
-                      "{REVIEWS[activeReviewIndex].text}"
-                    </p>
-                    <div className="guest-info" style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                      <span className="guest-name" style={{ fontFamily: 'var(--font-sans)', fontWeight: 600, fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.15em', color: 'var(--color-text-primary)' }}>
-                        {REVIEWS[activeReviewIndex].name}
-                      </span>
-                      <span className="guest-origin" style={{ fontFamily: 'var(--font-sans)', fontSize: '0.75rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-                        {REVIEWS[activeReviewIndex].origin}
-                      </span>
-                    </div>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-
-              {/* Carousel Controls */}
-              <div className="carousel-dots" style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginTop: '140px' }}>
-                {REVIEWS.map((_, index) => (
+                <div className="room-card-details">
+                  <h3 className="room-card-title">LUXURY ROOM</h3>
                   <button 
-                    key={index} 
-                    className={`dot ${activeReviewIndex === index ? 'active' : ''}`} 
-                    onClick={() => setActiveReviewIndex(index)}
-                    aria-label={`Review ${index + 1}`}
-                  />
-                ))}
+                    className="room-card-link-btn"
+                    onClick={() => {
+                      setSelectedRoomKey('deluxe');
+                      setIsDetailOpen(true);
+                    }}
+                  >
+                    LEARN MORE
+                  </button>
+                </div>
+              </div>
+
+              <div className="room-card-side side-right">
+                <img src="assets/images/memories_bg.png" alt="Side view room preview" />
               </div>
             </div>
           </div>
         </section>
 
-        {/* Contact & Location Section */}
-        <section id="contact" className="contact-section section-padding">
+        {/* Section 5: Promotional Video Banner */}
+        <section className="promo-video-section">
+          <div className="promo-bg-wrap">
+            <img src="assets/images/promo_video_bg.png" alt="Luxury suite interior" className="promo-bg-img" />
+            <div className="promo-overlay"></div>
+          </div>
+          <div className="promo-content text-center">
+            <div className="section-stars">
+              <Star size={14} fill="var(--color-gold)" stroke="none" />
+              <Star size={14} fill="var(--color-gold)" stroke="none" />
+              <Star size={14} fill="var(--color-gold)" stroke="none" />
+              <Star size={14} fill="var(--color-gold)" stroke="none" />
+              <Star size={14} fill="var(--color-gold)" stroke="none" />
+            </div>
+            <h2 className="promo-heading">Hotel Promotional Video</h2>
+            <button className="play-button-btn" onClick={() => alert("Playing Resort Hotel 128 promotional film...")} aria-label="Play video">
+              <Play size={24} fill="#ffffff" stroke="none" />
+            </button>
+          </div>
+        </section>
+
+        {/* Section 6: Hotel Blog */}
+        <section id="blog" className="blog-section section-padding">
           <div className="container">
-            <div className="contact-grid">
-              {/* Contact Info */}
-              <div className="contact-info-block">
-                <span class="section-subtitle">Get In Touch</span>
-                <h2 className="section-title">We Await Your Arrival</h2>
-                <div className="divider divider-left"></div>
-                <p className="contact-lead-text">Whether you seek detail on our suites, wish to orchestrate custom itineraries, or desire a private tour, our guest relations team is at your convenience.</p>
-                
-                <div className="contact-details">
-                  <div className="contact-detail-item">
-                    <div className="icon">
-                      <MapPin size={20} strokeWidth={1.5} />
-                    </div>
-                    <div>
-                      <h4 className="detail-label">Location</h4>
-                      <p className="detail-val">128 Strada di Tramonti, Positano, Italy</p>
-                    </div>
-                  </div>
+            <div className="section-header text-center">
+              <span className="section-subtitle">HOTEL BLOG</span>
+              <h2 className="section-title">Hotel Blog</h2>
+              <p className="section-desc">Keep up to date with the latest design choices, local events, and travel tips.</p>
+            </div>
 
-                  <div className="contact-detail-item">
-                    <div className="icon">
-                      <Phone size={20} strokeWidth={1.5} />
-                    </div>
-                    <div>
-                      <h4 className="detail-label">Reservations & Info</h4>
-                      <p className="detail-val">+39 089 875 4400</p>
-                    </div>
-                  </div>
-
-                  <div className="contact-detail-item">
-                    <div className="icon">
-                      <Mail size={20} strokeWidth={1.5} />
-                    </div>
-                    <div>
-                      <h4 className="detail-label">Email</h4>
-                      <p className="detail-val">reservations@lhorizonresort.com</p>
-                    </div>
-                  </div>
+            <div className="blog-grid">
+              {/* Post 1 */}
+              <div className="blog-card">
+                <div className="blog-img-wrap">
+                  <img src="assets/images/blog_design.png" alt="Courtyard lounge lobby" className="blog-img" />
+                </div>
+                <div className="blog-info">
+                  <span className="blog-category">DESIGN / TIPS</span>
+                  <h3 className="blog-card-title">EXPLORE INTERIOR DESIGN OF HOTEL 128</h3>
+                  <p className="blog-card-text">Step inside the architectural philosophy and detailed layout configurations that render our resort hotel rooms completely unique.</p>
+                  <a href="#blog" className="blog-read-more" onClick={(e) => { e.preventDefault(); alert("Read blog post: Interior Design"); }}>READ MORE</a>
                 </div>
               </div>
 
-              {/* Contact Form */}
-              <div className="contact-form-block">
-                <form id="contact-form" className="luxury-form" onSubmit={handleContactSubmit}>
-                  <h3 className="form-title">Send An Inquiry</h3>
-                  <div className="form-row">
-                    <div className="form-group">
-                      <label htmlFor="contact-name">Full Name</label>
-                      <input 
-                        type="text" 
-                        id="contact-name" 
-                        required 
-                        placeholder="e.g., Jane Doe"
-                        value={contactFormData.name}
-                        onChange={(e) => setContactFormData({...contactFormData, name: e.target.value})}
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label htmlFor="contact-email">Email Address</label>
-                      <input 
-                        type="email" 
-                        id="contact-email" 
-                        required 
-                        placeholder="e.g., jane@example.com"
-                        value={contactFormData.email}
-                        onChange={(e) => setContactFormData({...contactFormData, email: e.target.value})}
-                      />
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="contact-subject">Subject</label>
-                    <select 
-                      id="contact-subject"
-                      value={contactFormData.subject}
-                      onChange={(e) => setContactFormData({...contactFormData, subject: e.target.value})}
-                    >
-                      <option value="reservation">Reservation Inquiry</option>
-                      <option value="event">Private Events &amp; Weddings</option>
-                      <option value="special">Bespoke Concierge Request</option>
-                      <option value="general">General Inquiries</option>
-                    </select>
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="contact-message">Message</label>
-                    <textarea 
-                      id="contact-message" 
-                      rows="5" 
-                      required 
-                      placeholder="How may we assist you with your stay?"
-                      value={contactFormData.message}
-                      onChange={(e) => setContactFormData({...contactFormData, message: e.target.value})}
-                    />
-                  </div>
-                  <button type="submit" className="btn btn-gold btn-full" id="contact-submit-btn">Send Message</button>
-                </form>
+              {/* Post 2 */}
+              <div className="blog-card">
+                <div className="blog-img-wrap">
+                  <img src="assets/images/blog_vacation.png" alt="Boutique hotel front entrance" className="blog-img" />
+                </div>
+                <div className="blog-info">
+                  <span className="blog-category">TRAVEL / BUSINESS</span>
+                  <h3 className="blog-card-title">THE BEST HOTELS FOR BUSINESS VACATIONS</h3>
+                  <p className="blog-card-text">Settle your team or business clients in a workspace that combines high-speed utility with total beachside peace.</p>
+                  <a href="#blog" className="blog-read-more" onClick={(e) => { e.preventDefault(); alert("Read blog post: Business Vacations"); }}>READ MORE</a>
+                </div>
               </div>
             </div>
           </div>
@@ -689,71 +563,51 @@ export default function ResortPage({ onPageChange }) {
       </main>
 
       {/* Footer */}
-      <footer className="main-footer">
+      <footer className="main-footer bg-dark-green">
         <div className="container">
+          <div className="footer-top-row text-center">
+            <span className="footer-logo-title">Resort Hotel</span>
+          </div>
+
           <div className="footer-grid">
-            <div className="footer-brand-column">
-              <a href="#home" className="footer-logo">
-                <span>L'HORIZON</span>
-                <span className="logo-subtitle">RESORT & SPA</span>
-              </a>
-              <p className="footer-about">An exclusive retreat celebrating the beauty of the coast, featuring bespoke accommodations and refined service for the modern epicurean.</p>
+            <div className="footer-column">
+              <h4 className="footer-title">ADDRESS</h4>
+              <p className="footer-text">128 Strada di Tramonti, Positano, Italy</p>
+              <p className="footer-text">Tel: +39 089 875 4400</p>
+              <p className="footer-text">Email: info@resorthotel128.com</p>
             </div>
-            <div className="footer-links-column">
-              <h4 className="footer-title">Navigation</h4>
-              <ul className="footer-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#rooms">Suites &amp; Villas</a></li>
-                <li><a href="#amenities">Resort Amenities</a></li>
-                <li><a href="#gallery">Photo Gallery</a></li>
-              </ul>
-            </div>
-            <div className="footer-links-column">
-              <h4 className="footer-title">Demo Pages</h4>
-              <ul className="footer-links">
-                <li><a href="#resort" onClick={(e) => { e.preventDefault(); onPageChange('resort'); }} style={{ textDecoration: 'underline', fontWeight: 600 }}>L'Horizon Resort</a></li>
-                <li><a href="#insurance" onClick={(e) => { e.preventDefault(); onPageChange('insurance'); }}>Insurance Portal</a></li>
-                <li><a href="#chase" onClick={(e) => { e.preventDefault(); onPageChange('chase'); }}>Chasey CRM</a></li>
-              </ul>
-            </div>
-            <div className="footer-newsletter-column">
-              <h4 className="footer-title">Newsletter</h4>
-              <p className="newsletter-desc">Subscribe to receive exclusive offers, events, and seasonal updates from L'Horizon.</p>
-              <form id="newsletter-form" className="newsletter-form" onSubmit={handleNewsletterSubmit}>
-                <label htmlFor="newsletter-email" className="sr-only">Email address</label>
+
+            <div className="footer-column">
+              <h4 className="footer-title">NEWSLETTER</h4>
+              <p className="footer-text">Subscribe to our seasonal news and offers updates.</p>
+              <form className="footer-newsletter-form" onSubmit={handleNewsletterSubmit}>
                 <input 
                   type="email" 
-                  id="newsletter-email" 
-                  placeholder="Your Email Address" 
+                  placeholder="Your Email" 
                   required
                   value={newsletterEmail}
                   onChange={(e) => setNewsletterEmail(e.target.value)}
                 />
-                <button type="submit" className="btn btn-gold" id="newsletter-btn">Subscribe</button>
+                <button type="submit" className="footer-sub-btn">OK</button>
               </form>
+            </div>
+
+            <div className="footer-column">
+              <h4 className="footer-title">FOLLOW US</h4>
+              <div className="footer-social-links">
+                <a href="#instagram" onClick={(e) => e.preventDefault()}>Instagram</a>
+                <a href="#facebook" onClick={(e) => e.preventDefault()}>Facebook</a>
+                <a href="#twitter" onClick={(e) => e.preventDefault()}>Twitter</a>
+              </div>
             </div>
           </div>
 
-          <div className="footer-bottom">
-            <p className="copyright">&copy; 2026 L'Horizon Resort &amp; Spa. All rights reserved.</p>
-            <div className="footer-socials">
-              <a href="#instagram" aria-label="Instagram">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20">
-                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-                </svg>
-              </a>
-              <a href="#facebook" aria-label="Facebook">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20">
-                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-                </svg>
-              </a>
-              <a href="#twitter" aria-label="Twitter">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20">
-                  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
-                </svg>
-              </a>
+          <div className="footer-bottom-row">
+            <p className="copyright">&copy; 2026 Resort Hotel 128. All rights reserved.</p>
+            <div className="footer-demo-links" style={{ marginTop: '10px' }}>
+              <a href="#resort" onClick={(e) => { e.preventDefault(); onPageChange('resort'); }} style={{ color: 'var(--color-gold)', fontWeight: 600, marginRight: '15px' }}>Hotel 128</a>
+              <a href="#insurance" onClick={(e) => { e.preventDefault(); onPageChange('insurance'); }} style={{ color: '#ffffff', marginRight: '15px' }}>Insurance</a>
+              <a href="#chase" onClick={(e) => { e.preventDefault(); onPageChange('chase'); }} style={{ color: '#ffffff' }}>Chasey CRM</a>
             </div>
           </div>
         </div>
@@ -790,14 +644,13 @@ export default function ResortPage({ onPageChange }) {
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
               onClick={(e) => e.stopPropagation()}
               style={{
-                background: 'var(--color-bg-primary)',
-                border: '1px solid var(--color-border)',
-                borderRadius: 'var(--border-radius-lg)',
+                background: '#FAF6EE',
+                border: '1px solid #e0dcd3',
+                borderRadius: '8px',
                 padding: 0,
                 width: '90%',
-                maxWidth: '650px',
+                maxWidth: '600px',
                 position: 'relative',
-                boxShadow: 'var(--shadow-dark)',
                 display: 'block'
               }}
             >
@@ -805,7 +658,7 @@ export default function ResortPage({ onPageChange }) {
                 <button className="dialog-close-btn" onClick={() => setIsBookingOpen(false)} aria-label="Close booking form">&times;</button>
                 
                 <div className="dialog-header">
-                  <h2>Book Your Sanctuary</h2>
+                  <h2>Book Your Suite</h2>
                   <p className="dialog-subtitle">Specify your dates and preferences to reserve your luxury stay.</p>
                 </div>
 
@@ -844,13 +697,13 @@ export default function ResortPage({ onPageChange }) {
                         value={bookingFormData.room}
                         onChange={(e) => setBookingFormData({...bookingFormData, room: e.target.value})}
                       >
-                        <option value="deluxe">Deluxe Ocean Suite ($550/night)</option>
-                        <option value="penthouse">Presidential Penthouse ($1,200/night)</option>
+                        <option value="deluxe">Luxury Suite Room ($550/night)</option>
+                        <option value="penthouse">Royal Penthouse Suite ($1,200/night)</option>
                         <option value="villa">Sanctuary Garden Villa ($850/night)</option>
                       </select>
                     </div>
                     <div className="form-group">
-                      <label htmlFor="booking-guests">Number of Guests</label>
+                      <label htmlFor="booking-guests">Guests</label>
                       <select 
                         id="booking-guests" 
                         required
@@ -861,7 +714,6 @@ export default function ResortPage({ onPageChange }) {
                         <option value="2">2 Guests</option>
                         <option value="3">3 Guests</option>
                         <option value="4">4 Guests</option>
-                        <option value="5+">5+ Guests</option>
                       </select>
                     </div>
                   </div>
@@ -873,7 +725,7 @@ export default function ResortPage({ onPageChange }) {
                         type="text" 
                         id="booking-name" 
                         required 
-                        placeholder="e.g., John Smith"
+                        placeholder="John Smith"
                         value={bookingFormData.name}
                         onChange={(e) => setBookingFormData({...bookingFormData, name: e.target.value})}
                       />
@@ -884,25 +736,14 @@ export default function ResortPage({ onPageChange }) {
                         type="email" 
                         id="booking-email" 
                         required 
-                        placeholder="e.g., john@example.com"
+                        placeholder="john@example.com"
                         value={bookingFormData.email}
                         onChange={(e) => setBookingFormData({...bookingFormData, email: e.target.value})}
                       />
                     </div>
                   </div>
 
-                  <div className="form-group">
-                    <label htmlFor="booking-notes">Special Requests &amp; Notes</label>
-                    <textarea 
-                      id="booking-notes" 
-                      rows="3" 
-                      placeholder="e.g., dietary requirements, airport shuttle, high floor..."
-                      value={bookingFormData.notes}
-                      onChange={(e) => setBookingFormData({...bookingFormData, notes: e.target.value})}
-                    />
-                  </div>
-
-                  <button type="submit" className="btn btn-gold btn-full btn-large" id="booking-submit-btn">Confirm Reservation Inquiry</button>
+                  <button type="submit" className="btn btn-green btn-full btn-large" id="booking-submit-btn">Confirm Booking</button>
                 </form>
               </div>
             </motion.dialog>
@@ -941,14 +782,13 @@ export default function ResortPage({ onPageChange }) {
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
               onClick={(e) => e.stopPropagation()}
               style={{
-                background: 'var(--color-bg-primary)',
-                border: '1px solid var(--color-border)',
-                borderRadius: 'var(--border-radius-lg)',
+                background: '#FAF6EE',
+                border: '1px solid #e0dcd3',
+                borderRadius: '8px',
                 padding: 0,
                 width: '90%',
-                maxWidth: '850px',
+                maxWidth: '800px',
                 position: 'relative',
-                boxShadow: 'var(--shadow-dark)',
                 display: 'block',
                 overflow: 'hidden'
               }}
@@ -957,34 +797,25 @@ export default function ResortPage({ onPageChange }) {
                 <button className="dialog-close-btn" onClick={() => setIsDetailOpen(false)} aria-label="Close details">&times;</button>
                 
                 <div id="room-detail-body" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '30px', padding: '30px' }}>
-                  <div className="room-detail-img-wrapper" style={{ borderRadius: 'var(--border-radius-md)', overflow: 'hidden', height: '100%' }}>
+                  <div className="room-detail-img-wrapper" style={{ borderRadius: '6px', overflow: 'hidden', height: '240px' }}>
                     <img src={selectedRoom.image} alt={selectedRoom.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   </div>
                   <div className="room-detail-info" style={{ display: 'flex', flexDirection: 'column' }}>
-                    <h2 className="room-title" id="room-detail-title" style={{ fontSize: '2rem', marginBottom: '8px', color: 'var(--color-text-primary)' }}>{selectedRoom.title}</h2>
-                    <div className="room-detail-specs" style={{ display: 'flex', gap: '16px', fontSize: '0.8rem', color: 'var(--color-text-secondary)', marginBottom: '16px' }}>
+                    <h2 className="room-title" id="room-detail-title" style={{ fontSize: '1.75rem', marginBottom: '8px', color: '#2C3E35', fontFamily: 'var(--font-serif)' }}>{selectedRoom.title}</h2>
+                    <div className="room-detail-specs" style={{ display: 'flex', gap: '16px', fontSize: '0.8rem', color: '#555555', marginBottom: '16px' }}>
                       <span>📐 {selectedRoom.size}</span>
                       <span>🌅 {selectedRoom.view}</span>
                       <span>👥 Max {selectedRoom.guests}</span>
                     </div>
-                    <p className="room-detail-desc" style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', lineHeight: '1.6', marginBottom: '20px' }}>{selectedRoom.description}</p>
+                    <p className="room-detail-desc" style={{ fontSize: '0.85rem', color: '#666666', lineHeight: '1.6', marginBottom: '20px' }}>{selectedRoom.description}</p>
                     
-                    <h4 style={{ fontFamily: 'var(--font-sans)', textTransform: 'uppercase', fontSize: '0.75rem', letterSpacing: '0.1em', color: 'var(--color-gold)', marginBottom: '12px', fontWeight: 600 }}>Suite Exclusives</h4>
-                    <div className="room-detail-amenity-list" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', marginBottom: '24px' }}>
-                      {selectedRoom.amenities.map((amenity, i) => (
-                        <div key={i} className="room-detail-amenity-item" style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                          <ChevronRight size={12} color="var(--color-gold)" /> {amenity}
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="room-detail-footer" style={{ marginTop: 'auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--color-border)', paddingTop: '16px' }}>
+                    <div className="room-detail-footer" style={{ marginTop: 'auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #e0dcd3', paddingTop: '16px' }}>
                       <div className="room-price">
-                        <span className="price-amount" style={{ fontSize: '1.8rem', fontFamily: 'var(--font-serif)', color: 'var(--color-gold)' }}>{selectedRoom.price}</span>
-                        <span className="price-unit" style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>/ night</span>
+                        <span className="price-amount" style={{ fontSize: '1.6rem', fontFamily: 'var(--font-serif)', color: '#2C3E35' }}>{selectedRoom.price}</span>
+                        <span className="price-unit" style={{ fontSize: '0.75rem', color: '#888888' }}>/ night</span>
                       </div>
                       <button 
-                        className="btn btn-gold btn-book-from-detail"
+                        className="btn btn-green btn-book-from-detail"
                         onClick={() => {
                           setBookingFormData({
                             ...bookingFormData,
@@ -994,7 +825,7 @@ export default function ResortPage({ onPageChange }) {
                           setTimeout(() => setIsBookingOpen(true), 150);
                         }}
                       >
-                        Reserve This Suite
+                        Reserve This Room
                       </button>
                     </div>
                   </div>
