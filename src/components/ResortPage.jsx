@@ -257,7 +257,25 @@ export default function ResortPage({ onPageChange }) {
         {/* Hero Section */}
         <section id="home" className="hero-section">
           <div className="hero-bg-wrapper">
-            <img src="assets/images/resort_hero_128.png" alt="Outdoor lounge overlooking mountains" className="hero-image" />
+            <video 
+              autoPlay 
+              loop 
+              muted 
+              playsInline 
+              poster="assets/images/resort_hero_128.png" 
+              className="hero-image hero-video"
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                position: 'absolute',
+                top: 0,
+                left: 0
+              }}
+            >
+              <source src="https://assets.mixkit.co/videos/preview/mixkit-luxury-resort-with-swimming-pool-and-palm-trees-40485-large.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
             <div className="hero-overlay"></div>
           </div>
           
