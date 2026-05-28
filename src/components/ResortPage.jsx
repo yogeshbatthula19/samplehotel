@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 import { 
   Calendar, MapPin, Phone, Mail, Menu, X, 
@@ -89,6 +89,22 @@ export default function ResortPage({ onPageChange }) {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [isDetailOpen, setIsDetailOpen] = useState(false);
   const [selectedRoomKey, setSelectedRoomKey] = useState('deluxe');
+
+  const videoRef = useRef(null);
+  const setVideoRef = (el) => {
+    if (el) {
+      videoRef.current = el;
+      el.defaultMuted = true;
+      el.muted = true;
+      el.loop = true;
+      const playPromise = el.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          console.log("Autoplay was prevented by browser:", error);
+        });
+      }
+    }
+  };
 
   const [bookingFormData, setBookingFormData] = useState({
     checkin: '',
@@ -293,13 +309,13 @@ export default function ResortPage({ onPageChange }) {
               <section id="home" className="hero-section">
                 <div className="hero-bg-wrapper">
                   <video 
+                    ref={setVideoRef}
                     autoPlay 
                     loop 
                     muted 
                     playsInline 
                     poster="/assets/images/resort_hero_128.png" 
                     className="hero-image hero-video"
-                    onEnded={(e) => { e.target.play(); }}
                     style={{
                       width: '100%',
                       height: '100%',
