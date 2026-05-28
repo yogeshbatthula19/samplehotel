@@ -83,7 +83,7 @@ const REVIEWS = [
 
 export default function ResortPage({ onPageChange }) {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
+  const [subPage, setSubPage] = useState('home');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeReviewIndex, setActiveReviewIndex] = useState(0);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
@@ -103,7 +103,6 @@ export default function ResortPage({ onPageChange }) {
   const [contactFormData, setContactFormData] = useState({
     name: '',
     email: '',
-    subject: 'reservation',
     message: ''
   });
 
@@ -124,32 +123,10 @@ export default function ResortPage({ onPageChange }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Scroll to top on sub-page transition
   useEffect(() => {
-    const sections = ['home', 'about', 'services', 'testimonials', 'rooms', 'blog', 'contact'];
-    const observers = sections.map(id => {
-      const el = document.getElementById(id);
-      if (!el) return null;
-
-      const observer = new IntersectionObserver(([entry]) => {
-        if (entry.isIntersecting) {
-          setActiveSection(id);
-        }
-      }, {
-        root: null,
-        rootMargin: '-30% 0px -60% 0px',
-        threshold: 0
-      });
-
-      observer.observe(el);
-      return { observer, el };
-    }).filter(Boolean);
-
-    return () => {
-      observers.forEach(({ observer, el }) => {
-        if (el) observer.unobserve(el);
-      });
-    };
-  }, []);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [subPage]);
 
   const handleBookingSubmit = (e) => {
     e.preventDefault();
@@ -177,12 +154,11 @@ export default function ResortPage({ onPageChange }) {
   const handleContactSubmit = (e) => {
     e.preventDefault();
     alert(
-      `Inquiry Sent Successfully\n\nDear ${contactFormData.name},\n\nYour message has been sent to our Guest Relations department. An advisor will get in touch at ${contactFormData.email} shortly.`
+      `Inquiry Sent Successfully\n\nDear ${contactFormData.name},\n\nYour message has been sent to our Guest Relations department. We will get in touch at ${contactFormData.email} shortly.`
     );
     setContactFormData({
       name: '',
       email: '',
-      subject: 'reservation',
       message: ''
     });
   };
@@ -207,20 +183,69 @@ export default function ResortPage({ onPageChange }) {
         <div className="header-container">
           <nav className="header-nav-left">
             <ul className="nav-list">
-              <li><a href="#home" className={`nav-link ${activeSection === 'home' ? 'active' : ''}`}>Home</a></li>
-              <li><a href="#about" className={`nav-link ${activeSection === 'about' ? 'active' : ''}`}>About</a></li>
-              <li><a href="#rooms" className={`nav-link ${activeSection === 'rooms' ? 'active' : ''}`}>Rooms</a></li>
+              <li>
+                <button 
+                  onClick={() => setSubPage('home')} 
+                  className={`nav-link ${subPage === 'home' ? 'active' : ''}`}
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', outline: 'none' }}
+                >
+                  Home
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => setSubPage('about')} 
+                  className={`nav-link ${subPage === 'about' ? 'active' : ''}`}
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', outline: 'none' }}
+                >
+                  About
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => setSubPage('rooms')} 
+                  className={`nav-link ${subPage === 'rooms' ? 'active' : ''}`}
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', outline: 'none' }}
+                >
+                  Rooms
+                </button>
+              </li>
             </ul>
           </nav>
 
-          <a href="#home" className="logo" id="header-logo" onClick={() => setActiveSection('home')}>
+          <a href="#home" className="logo" id="header-logo" onClick={(e) => { e.preventDefault(); setSubPage('home'); }}>
             <span className="logo-title-text">Resort Hotel</span>
           </a>
 
           <nav className="header-nav-right">
             <ul className="nav-list">
-              <li><a href="#services" className={`nav-link ${activeSection === 'services' ? 'active' : ''}`}>Gallery</a></li>
-              <li><a href="#contact" className={`nav-link ${activeSection === 'contact' ? 'active' : ''}`}>Contact</a></li>
+              <li>
+                <button 
+                  onClick={() => setSubPage('events')} 
+                  className={`nav-link ${subPage === 'events' ? 'active' : ''}`}
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', outline: 'none' }}
+                >
+                  Events
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => setSubPage('gallery')} 
+                  className={`nav-link ${subPage === 'gallery' ? 'active' : ''}`}
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', outline: 'none' }}
+                >
+                  Gallery
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => setSubPage('contact')} 
+                  className={`nav-link ${subPage === 'contact' ? 'active' : ''}`}
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', outline: 'none' }}
+                >
+                  Contact
+                </button>
+              </li>
             </ul>
           </nav>
 
@@ -243,348 +268,404 @@ export default function ResortPage({ onPageChange }) {
         {isMobileMenuOpen && (
           <nav className="mobile-nav-menu">
             <ul className="mobile-nav-list">
-              <li><a href="#home" onClick={() => setIsMobileMenuOpen(false)}>Home</a></li>
-              <li><a href="#about" onClick={() => setIsMobileMenuOpen(false)}>About</a></li>
-              <li><a href="#services" onClick={() => setIsMobileMenuOpen(false)}>Services</a></li>
-              <li><a href="#rooms" onClick={() => setIsMobileMenuOpen(false)}>Rooms</a></li>
-              <li><a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>Contact</a></li>
+              <li><button onClick={() => { setSubPage('home'); setIsMobileMenuOpen(false); }} className="mobile-nav-btn">Home</button></li>
+              <li><button onClick={() => { setSubPage('about'); setIsMobileMenuOpen(false); }} className="mobile-nav-btn">About</button></li>
+              <li><button onClick={() => { setSubPage('rooms'); setIsMobileMenuOpen(false); }} className="mobile-nav-btn">Rooms</button></li>
+              <li><button onClick={() => { setSubPage('events'); setIsMobileMenuOpen(false); }} className="mobile-nav-btn">Events</button></li>
+              <li><button onClick={() => { setSubPage('gallery'); setIsMobileMenuOpen(false); }} className="mobile-nav-btn">Gallery</button></li>
+              <li><button onClick={() => { setSubPage('contact'); setIsMobileMenuOpen(false); }} className="mobile-nav-btn">Contact</button></li>
             </ul>
           </nav>
         )}
       </header>
 
-      <main>
-        {/* Hero Section */}
-        <section id="home" className="hero-section">
-          <div className="hero-bg-wrapper">
-            <video 
-              autoPlay 
-              loop 
-              muted 
-              playsInline 
-              poster="/assets/images/resort_hero_128.png" 
-              className="hero-image hero-video"
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                position: 'absolute',
-                top: 0,
-                left: 0
-              }}
+      <main style={{ paddingTop: subPage === 'home' ? '0' : '90px' }}>
+        <AnimatePresence mode="wait">
+          {subPage === 'home' && (
+            <motion.div
+              key="home"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4 }}
             >
-              <source src="/assets/videos/resort_video.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-            <div className="hero-overlay"></div>
-          </div>
-          
-          <div className="hero-content">
-            <div className="hero-stars">
-              <Star size={16} fill="var(--color-gold)" stroke="none" />
-              <Star size={16} fill="var(--color-gold)" stroke="none" />
-              <Star size={16} fill="var(--color-gold)" stroke="none" />
-              <Star size={16} fill="var(--color-gold)" stroke="none" />
-              <Star size={16} fill="var(--color-gold)" stroke="none" />
-            </div>
-            <h1 className="hero-title">Resort Hotel 128</h1>
-            <p className="hero-lead">Welcome to the place where luxury meets the infinite horizon. Experience breathtaking nature and premium boutique rooms.</p>
-          </div>
-
-          {/* Quick Check Availability Bar */}
-          <div className="quick-check-widget">
-            <form className="quick-check-form" onSubmit={handleQuickCheckSubmit}>
-              <div className="form-group-inline">
-                <label htmlFor="quick-checkin">Check-in</label>
-                <input 
-                  type="date" 
-                  id="quick-checkin" 
-                  required 
-                  min={new Date().toISOString().split('T')[0]}
-                  value={bookingFormData.checkin}
-                  onChange={(e) => setBookingFormData({...bookingFormData, checkin: e.target.value})}
-                />
-              </div>
-              <div className="form-group-inline">
-                <label htmlFor="quick-checkout">Check-out</label>
-                <input 
-                  type="date" 
-                  id="quick-checkout" 
-                  required 
-                  min={bookingFormData.checkin || new Date().toISOString().split('T')[0]}
-                  value={bookingFormData.checkout}
-                  onChange={(e) => setBookingFormData({...bookingFormData, checkout: e.target.value})}
-                />
-              </div>
-              <div className="form-group-inline">
-                <label htmlFor="quick-guests">Guests</label>
-                <select 
-                  id="quick-guests"
-                  value={bookingFormData.guests}
-                  onChange={(e) => setBookingFormData({...bookingFormData, guests: e.target.value})}
-                >
-                  <option value="1">1 Guest</option>
-                  <option value="2">2 Guests</option>
-                  <option value="3">3 Guests</option>
-                  <option value="4">4 Guests</option>
-                </select>
-              </div>
-              <button type="submit" className="btn btn-green" id="quick-search-btn">Check Now</button>
-            </form>
-          </div>
-        </section>
-
-        {/* Section 1: Make Your Golden Memories */}
-        <section id="about" className="memories-section section-padding">
-          <div className="container memories-grid-container">
-            <div className="memories-text-content">
-              <div className="section-stars">
-                <Star size={14} fill="var(--color-gold)" stroke="none" />
-                <Star size={14} fill="var(--color-gold)" stroke="none" />
-                <Star size={14} fill="var(--color-gold)" stroke="none" />
-                <Star size={14} fill="var(--color-gold)" stroke="none" />
-                <Star size={14} fill="var(--color-gold)" stroke="none" />
-              </div>
-              <h2 className="memories-heading">Make Your Golden Memories</h2>
-              <p className="memories-p">Our resort hotel provides the ultimate luxury experience. Nestled inside mountain scenery and pristine shores, we offer refined living, premium services, and curated experiences designed to help you create lifelong memories.</p>
-              <button className="btn btn-green btn-large" onClick={() => setIsBookingOpen(true)}>Explore Resort</button>
-            </div>
-            
-            <div className="memories-image-collage">
-              <div className="collage-bg-img-wrap">
-                <img src="/assets/images/memories_bg.png" alt="Tropical resort pool building" className="collage-bg-img" />
-              </div>
-              <div className="collage-fg-img-wrap">
-                <img src="/assets/images/memories_fg.png" alt="Balcony overlooking lake" className="collage-fg-img" />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Features / Stats strip */}
-        <section className="stats-banner-section">
-          <div className="container stats-flex-container">
-            <div className="stat-item">
-              <h4 className="stat-value">Ocean View Suites</h4>
-              <p className="stat-label">120 Villas & Suites</p>
-            </div>
-            <div className="stat-item">
-              <h4 className="stat-value">AURA Wellness Spa</h4>
-              <p className="stat-label">5 Treatment Chambers</p>
-            </div>
-            <div className="stat-item">
-              <h4 className="stat-value">Michelin Fine Dining</h4>
-              <p className="stat-label">3 Signature Restaurants</p>
-            </div>
-            <div className="stat-item">
-              <h4 className="stat-value">Direct Private Shore</h4>
-              <p className="stat-label">Private Beachfront Access</p>
-            </div>
-          </div>
-        </section>
-
-        {/* Section 2: Our Services */}
-        <section id="services" className="services-section section-padding">
-          <div className="container">
-            <div className="section-header text-center">
-              <span className="section-subtitle">OUR SERVICES</span>
-              <h2 className="section-title">Our Services</h2>
-              <p className="section-desc">Experience world-class hospitality, gourmet cuisines, and deep relaxation in our curated facilities.</p>
-            </div>
-
-            <div className="services-grid">
-              {/* Card 1 */}
-              <div className="service-card">
-                <div className="service-img-wrap">
-                  <img src="/assets/images/service_spa.png" alt="Woman at spa pool" className="service-img" />
-                </div>
-                <h3 className="service-card-title">Spa & Wellness</h3>
-                <p className="service-card-text">Indulge in holistic therapies and signature botanical massages in our relaxing wellness chambers.</p>
-              </div>
-
-              {/* Card 2 */}
-              <div className="service-card">
-                <div className="service-img-wrap">
-                  <img src="/assets/images/service_events.png" alt="Banquet hall dinner" className="service-img" />
-                </div>
-                <h3 className="service-card-title">Events & Meetings</h3>
-                <p className="service-card-text">Host your special occasions, weddings, and premium meetings in our luxurious banquet halls.</p>
-              </div>
-
-              {/* Card 3 */}
-              <div className="service-card">
-                <div className="service-img-wrap">
-                  <img src="/assets/images/service_restaurant.png" alt="Restaurant table dining" className="service-img" />
-                </div>
-                <h3 className="service-card-title">Restaurant & Bar</h3>
-                <p className="service-card-text">Savor delectable dishes crafted by Michelin-starred culinary artists using organic produce.</p>
-              </div>
-            </div>
-
-            <div className="text-center" style={{ marginTop: '40px' }}>
-              <button className="btn btn-green" onClick={() => setIsBookingOpen(true)}>View More</button>
-            </div>
-          </div>
-        </section>
-
-        {/* Section 3: Testimonials */}
-        <section id="testimonials" className="testimonials-section section-padding bg-dark-green">
-          <div className="container">
-            <div className="section-header text-center">
-              <span className="section-subtitle" style={{ color: 'var(--color-gold)' }}>REVIEWS</span>
-              <h2 className="section-title" style={{ color: '#ffffff' }}>Testimonials</h2>
-            </div>
-
-            <div className="testimonials-container text-center">
-              <div className="stars" style={{ color: 'var(--color-gold)', fontSize: '1.25rem', marginBottom: '16px' }}>
-                {REVIEWS[activeReviewIndex].stars}
-              </div>
-              <p className="testimonial-quote">
-                "{REVIEWS[activeReviewIndex].text}"
-              </p>
-              
-              <div className="reviewer-profile" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginTop: '30px' }}>
-                <div className="reviewer-avatar">
-                  <span className="avatar-initials">{REVIEWS[activeReviewIndex].name.charAt(0)}</span>
-                </div>
-                <div className="reviewer-info text-left">
-                  <h4 className="reviewer-name">{REVIEWS[activeReviewIndex].name}</h4>
-                  <p className="reviewer-role">{REVIEWS[activeReviewIndex].origin}</p>
-                </div>
-              </div>
-
-              {/* Carousel controls */}
-              <div className="carousel-controls" style={{ display: 'flex', justifyContent: 'center', gap: '15px', marginTop: '40px' }}>
-                <button 
-                  className="carousel-btn"
-                  onClick={() => setActiveReviewIndex(prev => (prev - 1 + REVIEWS.length) % REVIEWS.length)}
-                  aria-label="Previous review"
-                >
-                  <ChevronLeft size={20} />
-                </button>
-                <button 
-                  className="carousel-btn"
-                  onClick={() => setActiveReviewIndex(prev => (prev + 1) % REVIEWS.length)}
-                  aria-label="Next review"
-                >
-                  <ChevronRight size={20} />
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Section 4: Rooms & Living */}
-        <section id="rooms" className="rooms-section section-padding">
-          <div className="container">
-            <div className="section-header text-center">
-              <div className="section-stars">
-                <Star size={14} fill="var(--color-gold)" stroke="none" />
-                <Star size={14} fill="var(--color-gold)" stroke="none" />
-                <Star size={14} fill="var(--color-gold)" stroke="none" />
-                <Star size={14} fill="var(--color-gold)" stroke="none" />
-                <Star size={14} fill="var(--color-gold)" stroke="none" />
-              </div>
-              <h2 className="section-title">Rooms & Living</h2>
-              <p className="section-desc">Take a look at our carefully designed living spaces that merge modern luxury with comfort.</p>
-            </div>
-
-            <div className="rooms-carousel-wrapper">
-              <div className="room-card-side side-left">
-                <img src="/assets/images/resort_hero_128.png" alt="Side view room preview" />
-              </div>
-
-              <div className="room-card-center">
-                <div className="room-img-container">
-                  <img src="/assets/images/room_luxury.png" alt="Luxury room suite bedroom" />
-                </div>
-                <div className="room-card-details">
-                  <h3 className="room-card-title">LUXURY ROOM</h3>
-                  <button 
-                    className="room-card-link-btn"
-                    onClick={() => {
-                      setSelectedRoomKey('deluxe');
-                      setIsDetailOpen(true);
+              {/* Hero Section */}
+              <section id="home" className="hero-section">
+                <div className="hero-bg-wrapper">
+                  <video 
+                    autoPlay 
+                    loop 
+                    muted 
+                    playsInline 
+                    poster="/assets/images/resort_hero_128.png" 
+                    className="hero-image hero-video"
+                    onEnded={(e) => { e.target.play(); }}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      position: 'absolute',
+                      top: 0,
+                      left: 0
                     }}
                   >
-                    LEARN MORE
-                  </button>
+                    <source src="/assets/videos/resort_video.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                  <div className="hero-overlay"></div>
                 </div>
-              </div>
-
-              <div className="room-card-side side-right">
-                <img src="/assets/images/memories_bg.png" alt="Side view room preview" />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Section 5: Promotional Video Banner */}
-        <section className="promo-video-section">
-          <div className="promo-bg-wrap">
-            <img src="/assets/images/promo_video_bg.png" alt="Luxury suite interior" className="promo-bg-img" />
-            <div className="promo-overlay"></div>
-          </div>
-          <div className="promo-content text-center">
-            <div className="section-stars">
-              <Star size={14} fill="var(--color-gold)" stroke="none" />
-              <Star size={14} fill="var(--color-gold)" stroke="none" />
-              <Star size={14} fill="var(--color-gold)" stroke="none" />
-              <Star size={14} fill="var(--color-gold)" stroke="none" />
-              <Star size={14} fill="var(--color-gold)" stroke="none" />
-            </div>
-            <h2 className="promo-heading">Hotel Promotional Video</h2>
-            <button className="play-button-btn" onClick={() => alert("Playing Resort Hotel 128 promotional film...")} aria-label="Play video">
-              <Play size={24} fill="#ffffff" stroke="none" />
-            </button>
-          </div>
-        </section>
-
-        {/* Section 6: Hotel Blog */}
-        <section id="blog" className="blog-section section-padding">
-          <div className="container">
-            <div className="section-header text-center">
-              <span className="section-subtitle">HOTEL BLOG</span>
-              <h2 className="section-title">Hotel Blog</h2>
-              <p className="section-desc">Keep up to date with the latest design choices, local events, and travel tips.</p>
-            </div>
-
-            <div className="blog-grid">
-              {/* Post 1 */}
-              <div className="blog-card">
-                <div className="blog-img-wrap">
-                  <img src="/assets/images/blog_design.png" alt="Courtyard lounge lobby" className="blog-img" />
+                
+                <div className="hero-content">
+                  <div className="hero-stars">
+                    <Star size={16} fill="var(--color-gold)" stroke="none" />
+                    <Star size={16} fill="var(--color-gold)" stroke="none" />
+                    <Star size={16} fill="var(--color-gold)" stroke="none" />
+                    <Star size={16} fill="var(--color-gold)" stroke="none" />
+                    <Star size={16} fill="var(--color-gold)" stroke="none" />
+                  </div>
+                  <h1 className="hero-title">Resort Hotel 128</h1>
+                  <p className="hero-lead">Welcome to the place where luxury meets the infinite horizon. Experience breathtaking nature and premium boutique rooms.</p>
                 </div>
-                <div className="blog-info">
-                  <span className="blog-category">DESIGN / TIPS</span>
-                  <h3 className="blog-card-title">EXPLORE INTERIOR DESIGN OF HOTEL 128</h3>
-                  <p className="blog-card-text">Step inside the architectural philosophy and detailed layout configurations that render our resort hotel rooms completely unique.</p>
-                  <a href="#blog" className="blog-read-more" onClick={(e) => { e.preventDefault(); alert("Read blog post: Interior Design"); }}>READ MORE</a>
-                </div>
-              </div>
 
-              {/* Post 2 */}
-              <div className="blog-card">
-                <div className="blog-img-wrap">
-                  <img src="/assets/images/blog_vacation.png" alt="Boutique hotel front entrance" className="blog-img" />
+                {/* Quick Check Availability Bar */}
+                <div className="quick-check-widget">
+                  <form className="quick-check-form" onSubmit={handleQuickCheckSubmit}>
+                    <div className="form-group-inline">
+                      <label htmlFor="quick-checkin">Check-in</label>
+                      <input 
+                        type="date" 
+                        id="quick-checkin" 
+                        required 
+                        min={new Date().toISOString().split('T')[0]}
+                        value={bookingFormData.checkin}
+                        onChange={(e) => setBookingFormData({...bookingFormData, checkin: e.target.value})}
+                      />
+                    </div>
+                    <div className="form-group-inline">
+                      <label htmlFor="quick-checkout">Check-out</label>
+                      <input 
+                        type="date" 
+                        id="quick-checkout" 
+                        required 
+                        min={bookingFormData.checkin || new Date().toISOString().split('T')[0]}
+                        value={bookingFormData.checkout}
+                        onChange={(e) => setBookingFormData({...bookingFormData, checkout: e.target.value})}
+                      />
+                    </div>
+                    <div className="form-group-inline">
+                      <label htmlFor="quick-guests">Guests</label>
+                      <select 
+                        id="quick-guests"
+                        value={bookingFormData.guests}
+                        onChange={(e) => setBookingFormData({...bookingFormData, guests: e.target.value})}
+                      >
+                        <option value="1">1 Guest</option>
+                        <option value="2">2 Guests</option>
+                        <option value="3">3 Guests</option>
+                        <option value="4">4 Guests</option>
+                      </select>
+                    </div>
+                    <button type="submit" className="btn btn-green" id="quick-search-btn">Check Now</button>
+                  </form>
                 </div>
-                <div className="blog-info">
-                  <span className="blog-category">TRAVEL / BUSINESS</span>
-                  <h3 className="blog-card-title">THE BEST HOTELS FOR BUSINESS VACATIONS</h3>
-                  <p className="blog-card-text">Settle your team or business clients in a workspace that combines high-speed utility with total beachside peace.</p>
-                  <a href="#blog" className="blog-read-more" onClick={(e) => { e.preventDefault(); alert("Read blog post: Business Vacations"); }}>READ MORE</a>
+              </section>
+            </motion.div>
+          )}
+
+          {subPage === 'about' && (
+            <motion.div
+              key="about"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.4 }}
+            >
+              {/* Section 1: Make Your Golden Memories */}
+              <section id="about" className="memories-section section-padding">
+                <div className="container memories-grid-container">
+                  <div className="memories-text-content">
+                    <div className="section-stars">
+                      <Star size={14} fill="var(--color-gold)" stroke="none" />
+                      <Star size={14} fill="var(--color-gold)" stroke="none" />
+                      <Star size={14} fill="var(--color-gold)" stroke="none" />
+                      <Star size={14} fill="var(--color-gold)" stroke="none" />
+                      <Star size={14} fill="var(--color-gold)" stroke="none" />
+                    </div>
+                    <h2 className="memories-heading">Make Your Golden Memories</h2>
+                    <p className="memories-p">Our resort hotel provides the ultimate luxury experience. Nestled inside mountain scenery and pristine shores, we offer refined living, premium services, and curated experiences designed to help you create lifelong memories.</p>
+                    <button className="btn btn-green btn-large" onClick={() => setIsBookingOpen(true)}>Explore Resort</button>
+                  </div>
+                  
+                  <div className="memories-image-collage">
+                    <div className="collage-bg-img-wrap">
+                      <img src="/assets/images/memories_bg.png" alt="Tropical resort pool building" className="collage-bg-img" />
+                    </div>
+                    <div className="collage-fg-img-wrap">
+                      <img src="/assets/images/memories_fg.png" alt="Balcony overlooking lake" className="collage-fg-img" />
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </section>
+              </section>
+
+              {/* Features / Stats strip */}
+              <section className="stats-banner-section">
+                <div className="container stats-flex-container">
+                  <div className="stat-item">
+                    <h4 className="stat-value">Ocean View Suites</h4>
+                    <p className="stat-label">120 Villas & Suites</p>
+                  </div>
+                  <div className="stat-item">
+                    <h4 className="stat-value">AURA Wellness Spa</h4>
+                    <p className="stat-label">5 Treatment Chambers</p>
+                  </div>
+                  <div className="stat-item">
+                    <h4 className="stat-value">Michelin Fine Dining</h4>
+                    <p className="stat-label">3 Signature Restaurants</p>
+                  </div>
+                  <div className="stat-item">
+                    <h4 className="stat-value">Direct Private Shore</h4>
+                    <p className="stat-label">Private Beachfront Access</p>
+                  </div>
+                </div>
+              </section>
+            </motion.div>
+          )}
+
+          {subPage === 'rooms' && (
+            <motion.div
+              key="rooms"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.4 }}
+            >
+              {/* Section 4: Rooms & Living */}
+              <section id="rooms" className="rooms-section section-padding">
+                <div className="container">
+                  <div className="section-header text-center">
+                    <div className="section-stars">
+                      <Star size={14} fill="var(--color-gold)" stroke="none" />
+                      <Star size={14} fill="var(--color-gold)" stroke="none" />
+                      <Star size={14} fill="var(--color-gold)" stroke="none" />
+                      <Star size={14} fill="var(--color-gold)" stroke="none" />
+                      <Star size={14} fill="var(--color-gold)" stroke="none" />
+                    </div>
+                    <h2 className="section-title">Rooms & Living</h2>
+                    <p className="section-desc">Take a look at our carefully designed living spaces that merge modern luxury with comfort.</p>
+                  </div>
+
+                  <div className="rooms-carousel-wrapper">
+                    <div className="room-card-side side-left" onClick={() => setSelectedRoomKey('penthouse')} style={{ cursor: 'pointer' }}>
+                      <img src="/assets/images/resort_hero_128.png" alt="Side view room preview" />
+                    </div>
+
+                    <div className="room-card-center">
+                      <div className="room-img-container">
+                        <img src={selectedRoom.image} alt={selectedRoom.title} />
+                      </div>
+                      <div className="room-card-details">
+                        <h3 className="room-card-title">{selectedRoom.title.toUpperCase()}</h3>
+                        <button 
+                          className="room-card-link-btn"
+                          onClick={() => setIsDetailOpen(true)}
+                        >
+                          LEARN MORE
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="room-card-side side-right" onClick={() => setSelectedRoomKey('villa')} style={{ cursor: 'pointer' }}>
+                      <img src="/assets/images/memories_bg.png" alt="Side view room preview" />
+                    </div>
+                  </div>
+                  
+                  {/* Suite Switch Buttons */}
+                  <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginTop: '45px', flexWrap: 'wrap' }}>
+                    {Object.keys(ROOM_DATA).map(key => (
+                      <button 
+                        key={key} 
+                        className={`btn ${selectedRoomKey === key ? 'btn-green' : 'btn-outline'}`}
+                        onClick={() => setSelectedRoomKey(key)}
+                        style={{ border: '1px solid var(--color-border)', textTransform: 'capitalize' }}
+                      >
+                        {ROOM_DATA[key].title}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </section>
+            </motion.div>
+          )}
+
+          {subPage === 'events' && (
+            <motion.div
+              key="events"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.4 }}
+            >
+              {/* Events & Meetings Page */}
+              <section id="services" className="services-section section-padding">
+                <div className="container">
+                  <div className="section-header text-center">
+                    <span className="section-subtitle">CELEBRATIONS</span>
+                    <h2 className="section-title">Events & Meetings</h2>
+                    <p className="section-desc">Host your special occasions, weddings, and premium meetings in our luxurious banquet halls.</p>
+                  </div>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '50px', alignItems: 'center', marginBottom: '60px' }} className="responsive-grid-events">
+                    <div style={{ height: '400px', overflow: 'hidden' }}>
+                      <img src="/assets/images/service_events.png" alt="Luxury banquet hall" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    </div>
+                    <div>
+                      <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '2.2rem', marginBottom: '16px', lineHeight: '1.2' }}>Elegant Venues & Professional Coordination</h3>
+                      <p style={{ color: 'var(--color-text-muted)', marginBottom: '24px', fontSize: '0.95rem', lineHeight: '1.7' }}>We offer comprehensive banquet coordination for luxury weddings, corporate summits, and intimate family gatherings. Our rooms are equipped with state-of-the-art acoustics, glowing crystal chandeliers, and dining menus customized by Michelin chefs.</p>
+                      <button className="btn btn-green" onClick={() => setIsBookingOpen(true)}>Book Venue</button>
+                    </div>
+                  </div>
+
+                  <div className="promo-video-section" style={{ height: '320px' }}>
+                    <div className="promo-bg-wrap">
+                      <img src="/assets/images/promo_video_bg.png" alt="Luxury suite interior" className="promo-bg-img" />
+                      <div className="promo-overlay"></div>
+                    </div>
+                    <div className="promo-content text-center" style={{ padding: '0 20px' }}>
+                      <h2 className="promo-heading" style={{ fontSize: '2.2rem' }}>Corporate & Social Gatherings</h2>
+                      <p style={{ opacity: 0.9, maxWidth: '600px', margin: '0 auto 24px auto', fontSize: '0.9rem', lineHeight: '1.6' }}>From private dining experiences to multi-day summits, Resort Hotel 128 guarantees absolute privacy, state-of-the-art setups, and impeccable dining services.</p>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </motion.div>
+          )}
+
+          {subPage === 'gallery' && (
+            <motion.div
+              key="gallery"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.4 }}
+            >
+              {/* Photo Gallery Page */}
+              <section id="gallery" className="gallery-section section-padding">
+                <div className="container">
+                  <div className="section-header text-center">
+                    <span className="section-subtitle">VISUAL JOURNEY</span>
+                    <h2 className="section-title">Photo Gallery</h2>
+                    <p className="section-desc">Take a look inside the spaces, fine dining cuisines, and landscapes that frame our resort.</p>
+                  </div>
+
+                  <div className="gallery-layout-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px' }}>
+                    <div style={{ height: '260px', overflow: 'hidden' }}><img src="/assets/images/resort_hero_128.png" alt="Hero resort view" style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'all 0.5s ease' }} className="gallery-hover-zoom" /></div>
+                    <div style={{ height: '260px', overflow: 'hidden' }}><img src="/assets/images/memories_bg.png" alt="Resort terrace" style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'all 0.5s ease' }} className="gallery-hover-zoom" /></div>
+                    <div style={{ height: '260px', overflow: 'hidden' }}><img src="/assets/images/memories_fg.png" alt="Resort balcony view" style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'all 0.5s ease' }} className="gallery-hover-zoom" /></div>
+                    <div style={{ height: '260px', overflow: 'hidden' }}><img src="/assets/images/service_spa.png" alt="Resort spa wellness" style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'all 0.5s ease' }} className="gallery-hover-zoom" /></div>
+                    <div style={{ height: '260px', overflow: 'hidden' }}><img src="/assets/images/service_events.png" alt="Resort banquet hall" style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'all 0.5s ease' }} className="gallery-hover-zoom" /></div>
+                    <div style={{ height: '260px', overflow: 'hidden' }}><img src="/assets/images/service_restaurant.png" alt="Resort dining table" style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'all 0.5s ease' }} className="gallery-hover-zoom" /></div>
+                  </div>
+                </div>
+              </section>
+            </motion.div>
+          )}
+
+          {subPage === 'contact' && (
+            <motion.div
+              key="contact"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.4 }}
+            >
+              {/* Contact & Inquiry Page */}
+              <section id="contact" className="contact-section section-padding">
+                <div className="container">
+                  <div className="contact-grid">
+                    <div className="contact-info-block">
+                      <span className="section-subtitle">GET IN TOUCH</span>
+                      <h2 className="section-title">We Await Your Arrival</h2>
+                      <p className="contact-lead-text">Whether you seek details on our suites, wish to coordinate custom itineraries, or desire a private tour, our guest relations team is at your convenience.</p>
+                      
+                      <div className="contact-details" style={{ marginTop: '35px' }}>
+                        <div className="contact-detail-item">
+                          <div className="icon" style={{ fontSize: '1.25rem' }}>📍</div>
+                          <div>
+                            <h4 className="detail-label">Location</h4>
+                            <p className="detail-val">128 Strada di Tramonti, Positano, Italy</p>
+                          </div>
+                        </div>
+                        <div className="contact-detail-item">
+                          <div className="icon" style={{ fontSize: '1.25rem' }}>📞</div>
+                          <div>
+                            <h4 className="detail-label">Reservations & Info</h4>
+                            <p className="detail-val">+39 089 875 4400</p>
+                          </div>
+                        </div>
+                        <div className="contact-detail-item">
+                          <div className="icon" style={{ fontSize: '1.25rem' }}>✉️</div>
+                          <div>
+                            <h4 className="detail-label">Email</h4>
+                            <p className="detail-val">reservations@resorthotel128.com</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="contact-form-block">
+                      <form id="contact-form" className="luxury-form" onSubmit={handleContactSubmit}>
+                        <h3 className="form-title">Send An Inquiry</h3>
+                        <div className="form-row">
+                          <div className="form-group">
+                            <label htmlFor="contact-name">Full Name</label>
+                            <input 
+                              type="text" 
+                              id="contact-name" 
+                              required 
+                              placeholder="Jane Doe"
+                              value={contactFormData.name}
+                              onChange={(e) => setContactFormData({...contactFormData, name: e.target.value})}
+                            />
+                          </div>
+                          <div className="form-group">
+                            <label htmlFor="contact-email">Email Address</label>
+                            <input 
+                              type="email" 
+                              id="contact-email" 
+                              required 
+                              placeholder="jane@example.com"
+                              value={contactFormData.email}
+                              onChange={(e) => setContactFormData({...contactFormData, email: e.target.value})}
+                            />
+                          </div>
+                        </div>
+                        <div className="form-group">
+                          <label htmlFor="contact-message">Message</label>
+                          <textarea 
+                            id="contact-message" 
+                            rows="5" 
+                            required 
+                            placeholder="How may we assist you?"
+                            value={contactFormData.message}
+                            onChange={(e) => setContactFormData({...contactFormData, message: e.target.value})}
+                          />
+                        </div>
+                        <button type="submit" className="btn btn-green btn-full">Send Message</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </main>
 
       {/* Footer */}
       <footer className="main-footer bg-dark-green">
         <div className="container">
           <div className="footer-top-row text-center">
-            <span className="footer-logo-title">Resort Hotel</span>
+            <span className="footer-logo-title" onClick={() => setSubPage('home')} style={{ cursor: 'pointer' }}>Resort Hotel</span>
           </div>
 
           <div className="footer-grid">

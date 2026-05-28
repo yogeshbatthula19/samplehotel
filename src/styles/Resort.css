@@ -1058,4 +1058,31 @@
     border-bottom: 1px solid rgba(255,255,255,0.1);
     padding-bottom: 15px;
   }
+  
+  .resort-page-wrap .mobile-nav-btn {
+    background: none;
+    border: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--color-forest);
+    cursor: pointer;
+    outline: none;
+    padding: 8px 0;
+    width: 100%;
+    text-align: left;
+  }
+  
+  .resort-page-wrap .responsive-grid-events {
+    grid-template-columns: 1fr !important;
+    gap: 30px !important;
+  }
+}
+
+.resort-page-wrap .gallery-hover-zoom {
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.resort-page-wrap .gallery-hover-zoom:hover {
+  transform: scale(1.05) !important;
 }
