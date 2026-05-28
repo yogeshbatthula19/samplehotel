@@ -13,7 +13,7 @@ const ROOM_DATA = {
     view: "Lake & Mountain View",
     guests: "2 Adults",
     price: "$550",
-    image: "assets/images/room_luxury.png",
+    image: "/assets/images/room_luxury.png",
     description: "Our signature Luxury Suite Room is designed to evoke absolute serenity. Features a spacious open-concept layout, custom teak furniture, a plush king-size bed with Egyptian cotton linens, and a private stone balcony directly overlooking the lake and mountain scenery. The ensuite features a rain shower and hand-carved stone soaking tub.",
     amenities: [
       "Private cliffside terrace",
@@ -30,7 +30,7 @@ const ROOM_DATA = {
     view: "Panoramic Lake View",
     guests: "Up to 4 Adults",
     price: "$1,200",
-    image: "assets/images/resort_hero_128.png",
+    image: "/assets/images/resort_hero_128.png",
     description: "Perched at the highest peak of the resort, the Royal Penthouse represents the pinnacle of luxury. Featuring double-height ceilings, a lavish marble fireplace, and floor-to-ceiling glass doors opening onto an expansive private terrace overlooking the entire mountain lake valley.",
     amenities: [
       "24/7 private butler service",
@@ -47,7 +47,7 @@ const ROOM_DATA = {
     view: "Cliffside & Tropical Garden",
     guests: "3 Adults",
     price: "$850",
-    image: "assets/images/memories_bg.png",
+    image: "/assets/images/memories_bg.png",
     description: "Tucked inside our lush Mediterranean gardens, the Sanctuary Garden Villa offers absolute privacy. The interior merges local stone and warm cedar woods, transitioning seamlessly onto a wide private sundeck. The outdoor terrace features a personal heated plunge pool, comfortable sun loungers, and an outdoor rain shower.",
     amenities: [
       "Private heated plunge pool",
@@ -262,7 +262,7 @@ export default function ResortPage({ onPageChange }) {
               loop 
               muted 
               playsInline 
-              poster="assets/images/resort_hero_128.png" 
+              poster="/assets/images/resort_hero_128.png" 
               className="hero-image hero-video"
               style={{
                 width: '100%',
@@ -273,7 +273,7 @@ export default function ResortPage({ onPageChange }) {
                 left: 0
               }}
             >
-              <source src="https://vjs.zencdn.net/v/oceans.mp4" type="video/mp4" />
+              <source src="/assets/videos/resort_video.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
             <div className="hero-overlay"></div>
@@ -352,10 +352,10 @@ export default function ResortPage({ onPageChange }) {
             
             <div className="memories-image-collage">
               <div className="collage-bg-img-wrap">
-                <img src="assets/images/memories_bg.png" alt="Tropical resort pool building" className="collage-bg-img" />
+                <img src="/assets/images/memories_bg.png" alt="Tropical resort pool building" className="collage-bg-img" />
               </div>
               <div className="collage-fg-img-wrap">
-                <img src="assets/images/memories_fg.png" alt="Balcony overlooking lake" className="collage-fg-img" />
+                <img src="/assets/images/memories_fg.png" alt="Balcony overlooking lake" className="collage-fg-img" />
               </div>
             </div>
           </div>
@@ -396,7 +396,7 @@ export default function ResortPage({ onPageChange }) {
               {/* Card 1 */}
               <div className="service-card">
                 <div className="service-img-wrap">
-                  <img src="assets/images/service_spa.png" alt="Woman at spa pool" className="service-img" />
+                  <img src="/assets/images/service_spa.png" alt="Woman at spa pool" className="service-img" />
                 </div>
                 <h3 className="service-card-title">Spa & Wellness</h3>
                 <p className="service-card-text">Indulge in holistic therapies and signature botanical massages in our relaxing wellness chambers.</p>
@@ -405,7 +405,7 @@ export default function ResortPage({ onPageChange }) {
               {/* Card 2 */}
               <div className="service-card">
                 <div className="service-img-wrap">
-                  <img src="assets/images/service_events.png" alt="Banquet hall dinner" className="service-img" />
+                  <img src="/assets/images/service_events.png" alt="Banquet hall dinner" className="service-img" />
                 </div>
                 <h3 className="service-card-title">Events & Meetings</h3>
                 <p className="service-card-text">Host your special occasions, weddings, and premium meetings in our luxurious banquet halls.</p>
@@ -414,7 +414,7 @@ export default function ResortPage({ onPageChange }) {
               {/* Card 3 */}
               <div className="service-card">
                 <div className="service-img-wrap">
-                  <img src="assets/images/service_restaurant.png" alt="Restaurant table dining" className="service-img" />
+                  <img src="/assets/images/service_restaurant.png" alt="Restaurant table dining" className="service-img" />
                 </div>
                 <h3 className="service-card-title">Restaurant & Bar</h3>
                 <p className="service-card-text">Savor delectable dishes crafted by Michelin-starred culinary artists using organic produce.</p>
@@ -491,12 +491,12 @@ export default function ResortPage({ onPageChange }) {
 
             <div className="rooms-carousel-wrapper">
               <div className="room-card-side side-left">
-                <img src="assets/images/resort_hero_128.png" alt="Side view room preview" />
+                <img src="/assets/images/resort_hero_128.png" alt="Side view room preview" />
               </div>
 
               <div className="room-card-center">
                 <div className="room-img-container">
-                  <img src="assets/images/room_luxury.png" alt="Luxury room suite bedroom" />
+                  <img src="/assets/images/room_luxury.png" alt="Luxury room suite bedroom" />
                 </div>
                 <div className="room-card-details">
                   <h3 className="room-card-title">LUXURY ROOM</h3>
@@ -513,7 +513,7 @@ export default function ResortPage({ onPageChange }) {
               </div>
 
               <div className="room-card-side side-right">
-                <img src="assets/images/memories_bg.png" alt="Side view room preview" />
+                <img src="/assets/images/memories_bg.png" alt="Side view room preview" />
               </div>
             </div>
           </div>
@@ -522,7 +522,7 @@ export default function ResortPage({ onPageChange }) {
         {/* Section 5: Promotional Video Banner */}
         <section className="promo-video-section">
           <div className="promo-bg-wrap">
-            <img src="assets/images/promo_video_bg.png" alt="Luxury suite interior" className="promo-bg-img" />
+            <img src="/assets/images/promo_video_bg.png" alt="Luxury suite interior" className="promo-bg-img" />
             <div className="promo-overlay"></div>
           </div>
           <div className="promo-content text-center">
@@ -553,7 +553,7 @@ export default function ResortPage({ onPageChange }) {
               {/* Post 1 */}
               <div className="blog-card">
                 <div className="blog-img-wrap">
-                  <img src="assets/images/blog_design.png" alt="Courtyard lounge lobby" className="blog-img" />
+                  <img src="/assets/images/blog_design.png" alt="Courtyard lounge lobby" className="blog-img" />
                 </div>
                 <div className="blog-info">
                   <span className="blog-category">DESIGN / TIPS</span>
@@ -566,7 +566,7 @@ export default function ResortPage({ onPageChange }) {
               {/* Post 2 */}
               <div className="blog-card">
                 <div className="blog-img-wrap">
-                  <img src="assets/images/blog_vacation.png" alt="Boutique hotel front entrance" className="blog-img" />
+                  <img src="/assets/images/blog_vacation.png" alt="Boutique hotel front entrance" className="blog-img" />
                 </div>
                 <div className="blog-info">
                   <span className="blog-category">TRAVEL / BUSINESS</span>
