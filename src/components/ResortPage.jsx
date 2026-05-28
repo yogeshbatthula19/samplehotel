@@ -273,7 +273,7 @@ export default function ResortPage({ onPageChange }) {
                 left: 0
               }}
             >
-              <source src="https://assets.mixkit.co/videos/preview/mixkit-luxury-resort-with-swimming-pool-and-palm-trees-40485-large.mp4" type="video/mp4" />
+              <source src="https://vjs.zencdn.net/v/oceans.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
             <div className="hero-overlay"></div>
